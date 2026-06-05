@@ -6,30 +6,50 @@ const ids = {
   summaryIntegrity: "summary-integrity",
   summaryDifference: "summary-difference",
   summaryRemaining: "summary-remaining",
+  summaryRemainingDetail: "summary-remaining-detail",
   summaryCurrentOrchard: "summary-current-orchard",
+  summaryCurrentOrchardDetail: "summary-current-orchard-detail",
   integrityStatus: "integrity-status",
   supplyEmitted: "supply-emitted",
+  supplyEmittedDetail: "supply-emitted-detail",
   sumPools: "sum-pools",
+  sumPoolsDetail: "sum-pools-detail",
   difference: "difference",
+  differenceDetail: "difference-detail",
   orchardShare: "orchard-share",
+  orchardShareDetail: "orchard-share-detail",
   shieldedShare: "shielded-share",
+  shieldedShareDetail: "shielded-share-detail",
   transparentShare: "transparent-share",
+  transparentShareDetail: "transparent-share-detail",
   orchardDominance: "orchard-dominance",
+  orchardDominanceDetail: "orchard-dominance-detail",
   healthIntegrity: "health-integrity",
   patchBlock: "patch-block",
   patchDate: "patch-date",
   patchOrchard: "patch-orchard",
+  patchOrchardDetail: "patch-orchard-detail",
   currentOrchard: "current-orchard",
+  currentOrchardDetail: "current-orchard-detail",
   movedSincePatch: "moved-since-patch",
+  movedSincePatchDetail: "moved-since-patch-detail",
   remainingSincePatch: "remaining-since-patch",
+  remainingSincePatchDetail: "remaining-since-patch-detail",
   percentRemaining: "percent-remaining",
+  percentRemainingDetail: "percent-remaining-detail",
   patchNetChange: "patch-net-change",
+  patchNetChangeDetail: "patch-net-change-detail",
   patchNetChangePct: "patch-net-change-pct",
   patchDailyChange: "patch-daily-change",
+  patchDailyChangeDetail: "patch-daily-change-detail",
   patchWeeklyChange: "patch-weekly-change",
+  patchWeeklyChangeDetail: "patch-weekly-change-detail",
   snapshotNu5: "snapshot-nu5",
+  snapshotNu5Detail: "snapshot-nu5-detail",
   snapshotPatch: "snapshot-patch",
+  snapshotPatchDetail: "snapshot-patch-detail",
   snapshotNow: "snapshot-now",
+  snapshotNowDetail: "snapshot-now-detail",
   snapshotGrowth: "snapshot-growth",
   snapshotChange: "snapshot-change",
   shareHistoryCount: "share-history-count",
@@ -81,6 +101,7 @@ function compactZecFromZatsFixed(value, digits) {
 }
 
 function formatCompact(value) {
+  if (value === 0) return "0";
   return new Intl.NumberFormat("en-US", {
     minimumFractionDigits: value < 10 ? 2 : 1,
     maximumFractionDigits: value < 10 ? 2 : 1,
@@ -139,6 +160,12 @@ function setText(node, value) {
   if (node) node.textContent = value;
 }
 
+function setCompactZec(primaryNode, detailNode, value) {
+  setText(primaryNode, compactZecFromZats(value));
+  setText(detailNode, zecFromZats(value));
+  if (primaryNode) primaryNode.title = zecFromZats(value);
+}
+
 function setHealthText(node, status) {
   if (!node) return;
   node.textContent = status;
@@ -150,6 +177,11 @@ function renderMetrics(data) {
   const patch = data.patch || {};
   const patchOrchard = BigInt(patch.orchard_balance_zatoshis || 0);
   const currentOrchard = BigInt(patch.current_orchard_balance_zatoshis || pools.orchard_zatoshis || 0);
+  const orchard = BigInt(pools.orchard_zatoshis || 0);
+  const sapling = BigInt(pools.sapling_zatoshis || 0);
+  const sprout = BigInt(pools.sprout_zatoshis || 0);
+  const transparent = BigInt(pools.transparent_zatoshis || 0);
+  const shielded = orchard + sapling + sprout;
   const percentRemaining = patchOrchard > 0n
     ? (Number(currentOrchard) / Number(patchOrchard)) * 100
     : 0;
@@ -157,19 +189,24 @@ function renderMetrics(data) {
   setHealthText(el.summaryIntegrity, data.integrity.status);
   setText(el.summaryDifference, zecFromZats(data.integrity.difference_zatoshis));
   setText(el.summaryRemaining, formatPct(percentRemaining));
-  setText(el.summaryCurrentOrchard, compactZecFromZats(currentOrchard));
+  setText(el.summaryRemainingDetail, zecFromZats(currentOrchard));
+  setCompactZec(el.summaryCurrentOrchard, el.summaryCurrentOrchardDetail, currentOrchard);
 
-  setText(el.supplyEmitted, zecFromZats(data.integrity.supply_emitted_zatoshis));
-  setText(el.sumPools, zecFromZats(data.integrity.sum_of_pools_zatoshis));
-  setText(el.difference, zecFromZats(data.integrity.difference_zatoshis));
+  setCompactZec(el.supplyEmitted, el.supplyEmittedDetail, data.integrity.supply_emitted_zatoshis);
+  setCompactZec(el.sumPools, el.sumPoolsDetail, data.integrity.sum_of_pools_zatoshis);
+  setCompactZec(el.difference, el.differenceDetail, data.integrity.difference_zatoshis);
   setStatus(el.integrityStatus, data.integrity.status, data.integrity.status);
   setHealthText(el.healthIntegrity, data.integrity.status);
 
   if (data.adoption) {
     setText(el.orchardShare, formatPct(data.adoption.orchard_share_of_supply_pct));
+    setText(el.orchardShareDetail, zecFromZats(orchard));
     setText(el.shieldedShare, formatPct(data.adoption.total_shielded_share_pct));
+    setText(el.shieldedShareDetail, zecFromZats(shielded));
     setText(el.transparentShare, formatPct(data.adoption.transparent_share_pct));
+    setText(el.transparentShareDetail, zecFromZats(transparent));
     setText(el.orchardDominance, formatPct(data.adoption.orchard_dominance_pct));
+    setText(el.orchardDominanceDetail, `${zecFromZats(orchard)} of ${zecFromZats(shielded)}`);
   }
 
   setStatus(el.syncStatus, data.integrity.status, data.current.info?.status || data.integrity.status);
@@ -181,22 +218,23 @@ function renderMetrics(data) {
   if (data.patch) {
     setText(el.patchBlock, data.patch.block.toLocaleString("en-US"));
     setText(el.patchDate, fullDateTime(Number(data.patch.timestamp) * 1000));
-    setText(el.patchOrchard, zecFromZats(data.patch.orchard_balance_zatoshis));
-    setText(el.currentOrchard, zecFromZats(data.patch.current_orchard_balance_zatoshis));
-    setText(el.movedSincePatch, zecFromZats(data.patch.moved_since_patch_zatoshis));
-    setText(el.remainingSincePatch, zecFromZats(data.patch.current_orchard_balance_zatoshis));
+    setCompactZec(el.patchOrchard, el.patchOrchardDetail, data.patch.orchard_balance_zatoshis);
+    setCompactZec(el.currentOrchard, el.currentOrchardDetail, data.patch.current_orchard_balance_zatoshis);
+    setCompactZec(el.movedSincePatch, el.movedSincePatchDetail, data.patch.moved_since_patch_zatoshis);
+    setCompactZec(el.remainingSincePatch, el.remainingSincePatchDetail, data.patch.current_orchard_balance_zatoshis);
     setText(el.percentRemaining, formatPct(percentRemaining));
-    setText(el.patchNetChange, zecFromZats(data.patch.net_change_zatoshis));
+    setText(el.percentRemainingDetail, zecFromZats(data.patch.current_orchard_balance_zatoshis));
+    setCompactZec(el.patchNetChange, el.patchNetChangeDetail, data.patch.net_change_zatoshis);
     setText(el.patchNetChangePct, formatPct(data.patch.net_change_pct));
-    setText(el.patchDailyChange, zecFromZats(data.patch.daily_change_zatoshis));
-    setText(el.patchWeeklyChange, zecFromZats(data.patch.weekly_change_zatoshis));
+    setCompactZec(el.patchDailyChange, el.patchDailyChangeDetail, data.patch.daily_change_zatoshis);
+    setCompactZec(el.patchWeeklyChange, el.patchWeeklyChangeDetail, data.patch.weekly_change_zatoshis);
   }
 
   if (data.historical_snapshots) {
     const snapshots = data.historical_snapshots;
-    setText(el.snapshotNu5, zecFromZats(snapshots.nu5.orchard_balance_zatoshis));
-    setText(el.snapshotPatch, zecFromZats(snapshots.patch.orchard_balance_zatoshis));
-    setText(el.snapshotNow, zecFromZats(snapshots.current.orchard_balance_zatoshis));
+    setCompactZec(el.snapshotNu5, el.snapshotNu5Detail, snapshots.nu5.orchard_balance_zatoshis);
+    setCompactZec(el.snapshotPatch, el.snapshotPatchDetail, snapshots.patch.orchard_balance_zatoshis);
+    setCompactZec(el.snapshotNow, el.snapshotNowDetail, snapshots.current.orchard_balance_zatoshis);
     setText(el.snapshotGrowth, zecFromZats(snapshots.growth_since_nu5_zatoshis));
     setText(el.snapshotChange, zecFromZats(snapshots.change_since_patch_zatoshis));
   }
@@ -263,7 +301,7 @@ function lineFor(points, key, scaleX, scaleY) {
     .join(" ");
 }
 
-function renderChart(history) {
+function renderChart(history, patch) {
   const svg = el.chart;
   svg.textContent = "";
 
@@ -320,6 +358,22 @@ function renderChart(history) {
 
   addPath(svg, areaPath, "chart-area");
   addPath(svg, linePath, "chart-line");
+
+  if (patch?.timestamp) {
+    const patchX = Number(patch.timestamp);
+    if (patchX >= minX && patchX <= maxX) {
+      const x = scaleX(patchX);
+      addLine(svg, x, margin.top, x, margin.top + innerH, "patch-marker-line");
+      addText(
+        svg,
+        x > width - 180 ? x - 10 : x + 10,
+        margin.top + 16,
+        "June 2026 Patch",
+        "patch-marker-text",
+        x > width - 180 ? "end" : "start"
+      );
+    }
+  }
 }
 
 function addPath(svg, d, className) {
@@ -366,7 +420,7 @@ async function init() {
     const data = await response.json();
     renderMetrics(data);
     renderShareChart(data.share_history || []);
-    renderChart(data.history || []);
+    renderChart(data.history || [], data.patch);
   } catch (error) {
     console.error(error);
     setStatus(el.syncStatus, "alert", "Error");

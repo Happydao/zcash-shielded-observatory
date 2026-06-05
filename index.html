@@ -36,10 +36,12 @@
         <article class="metric">
           <span>Orchard Remaining Since Patch</span>
           <strong id="summary-remaining">-</strong>
+          <small id="summary-remaining-detail">-</small>
         </article>
         <article class="metric">
           <span>Current Orchard Balance</span>
           <strong id="summary-current-orchard">-</strong>
+          <small id="summary-current-orchard-detail">-</small>
         </article>
       </section>
 
@@ -80,26 +82,32 @@
           <div>
             <span>Patch Orchard Balance</span>
             <strong id="patch-orchard">-</strong>
+            <small id="patch-orchard-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Current Orchard Balance</span>
             <strong id="current-orchard">-</strong>
+            <small id="current-orchard-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Net Orchard Reduction Since Patch</span>
             <strong id="moved-since-patch">-</strong>
+            <small id="moved-since-patch-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Remaining Orchard Since Patch</span>
             <strong id="remaining-since-patch">-</strong>
+            <small id="remaining-since-patch-detail" class="value-detail">-</small>
           </div>
           <div class="highlight-tile">
             <span>Percent Remaining Since Patch</span>
             <strong id="percent-remaining">-</strong>
+            <small id="percent-remaining-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Net Change</span>
             <strong id="patch-net-change">-</strong>
+            <small id="patch-net-change-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Net Change %</span>
@@ -108,10 +116,12 @@
           <div>
             <span>Latest Interval Orchard Change</span>
             <strong id="patch-daily-change">-</strong>
+            <small id="patch-daily-change-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Weekly Change</span>
             <strong id="patch-weekly-change">-</strong>
+            <small id="patch-weekly-change-detail" class="value-detail">-</small>
           </div>
         </div>
       </section>
@@ -129,14 +139,17 @@
           <div>
             <span>Supply Emitted</span>
             <strong id="supply-emitted">-</strong>
+            <small id="supply-emitted-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Sum of Pools</span>
             <strong id="sum-pools">-</strong>
+            <small id="sum-pools-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Difference</span>
             <strong id="difference">-</strong>
+            <small id="difference-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Status</span>
@@ -158,18 +171,22 @@
           <div>
             <span>Orchard Share of Supply</span>
             <strong id="orchard-share">-</strong>
+            <small id="orchard-share-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Total Shielded Share</span>
             <strong id="shielded-share">-</strong>
+            <small id="shielded-share-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Transparent Share</span>
             <strong id="transparent-share">-</strong>
+            <small id="transparent-share-detail" class="value-detail">-</small>
           </div>
           <div>
             <span>Orchard Dominance Among Shielded Funds</span>
             <strong id="orchard-dominance">-</strong>
+            <small id="orchard-dominance-detail" class="value-detail">-</small>
           </div>
         </div>
       </section>
@@ -177,31 +194,29 @@
       <section class="panel snapshots-panel">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Historical Snapshot Mode</p>
-            <h2>Orchard Accounting Snapshots</h2>
+            <p class="eyebrow">Orchard Timeline</p>
+            <h2>NU5 Activation to Today</h2>
           </div>
         </div>
 
-        <div class="patch-grid">
-          <div>
-            <span>Orchard at NU5</span>
+        <div class="timeline" aria-label="Orchard timeline">
+          <div class="timeline-item">
+            <span class="timeline-step">NU5 Activation</span>
+            <span class="timeline-label">Orchard at NU5</span>
             <strong id="snapshot-nu5">-</strong>
+            <small id="snapshot-nu5-detail" class="value-detail">-</small>
           </div>
-          <div>
-            <span>Orchard at Patch</span>
+          <div class="timeline-item">
+            <span class="timeline-step">June 2026 Patch</span>
+            <span class="timeline-label">Orchard at Patch</span>
             <strong id="snapshot-patch">-</strong>
+            <small id="snapshot-patch-detail" class="value-detail">-</small>
           </div>
-          <div>
-            <span>Orchard Now</span>
+          <div class="timeline-item">
+            <span class="timeline-step">Today</span>
+            <span class="timeline-label">Orchard Today</span>
             <strong id="snapshot-now">-</strong>
-          </div>
-          <div>
-            <span>Growth Since NU5</span>
-            <strong id="snapshot-growth">-</strong>
-          </div>
-          <div>
-            <span>Change Since Patch</span>
-            <strong id="snapshot-change">-</strong>
+            <small id="snapshot-now-detail" class="value-detail">-</small>
           </div>
         </div>
       </section>
@@ -317,15 +332,15 @@
 
     <footer class="site-footer">
       <div>
-        <span>Source</span>
+        <span>Data Source</span>
         <strong><a href="https://api.zcashinfo.com/docs">ZcashInfo API</a></strong>
       </div>
       <div>
-        <span>Data Refresh Frequency</span>
-        <strong>Every hour</strong>
+        <span>Refresh Rate</span>
+        <strong>Every Hour</strong>
       </div>
       <div>
-        <span>Last Update (UTC)</span>
+        <span>Last Updated</span>
         <strong id="footer-updated-at">-</strong>
       </div>
       <div>

@@ -269,7 +269,16 @@ main {
 .patch-grid strong {
   display: block;
   margin-top: 14px;
-  font-size: 1.18rem;
+  font-size: 1.42rem;
+  overflow-wrap: anywhere;
+}
+
+.value-detail {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
   overflow-wrap: anywhere;
 }
 
@@ -281,6 +290,80 @@ main {
 .patch-grid .highlight-tile strong {
   color: var(--green);
   font-size: clamp(1.7rem, 3vw, 2.35rem);
+  line-height: 1;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  position: relative;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 31px;
+  left: 16.66%;
+  right: 16.66%;
+  height: 2px;
+  background: var(--line);
+}
+
+.timeline-item {
+  position: relative;
+  min-width: 0;
+  padding: 16px;
+  background: var(--surface-muted);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.timeline-item::before {
+  content: "";
+  display: block;
+  width: 13px;
+  height: 13px;
+  margin-bottom: 14px;
+  background: var(--green);
+  border: 3px solid #e8f6ee;
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px #bfe6ce;
+}
+
+.timeline-item:not(:last-child)::after {
+  content: "->";
+  position: absolute;
+  top: 20px;
+  right: -16px;
+  z-index: 1;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.timeline-step,
+.timeline-label {
+  display: block;
+}
+
+.timeline-step {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.timeline-label {
+  margin-top: 10px;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.timeline-item strong {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
   line-height: 1;
 }
 
@@ -353,6 +436,18 @@ main {
 .grid-line {
   stroke: #dce4de;
   stroke-width: 1;
+}
+
+.patch-marker-line {
+  stroke: var(--amber);
+  stroke-dasharray: 6 5;
+  stroke-width: 2;
+}
+
+.patch-marker-text {
+  fill: var(--amber);
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .chart-line {
@@ -489,10 +584,16 @@ dd {
 
   .integrity-grid,
   .patch-grid,
+  .timeline,
   .method-grid,
   .site-footer,
   .details-panel dl {
     grid-template-columns: 1fr;
+  }
+
+  .timeline::before,
+  .timeline-item::after {
+    display: none;
   }
 }
 

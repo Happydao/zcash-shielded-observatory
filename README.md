@@ -45,7 +45,7 @@ Post-Patch Tracking compares current Orchard balance with the Orchard balance at
 
 Historical Pool Metrics use ZcashInfo value-pool history to chart Orchard, Sapling, and Transparent share over time.
 
-## Historical Snapshot Mode
+## Orchard Timeline
 
 This mode fetches only:
 
