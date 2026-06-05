@@ -9,6 +9,8 @@ const ids = {
   summaryRemainingDetail: "summary-remaining-detail",
   summaryCurrentOrchard: "summary-current-orchard",
   summaryCurrentOrchardDetail: "summary-current-orchard-detail",
+  factCurrentOrchard: "fact-current-orchard",
+  factPercentRemaining: "fact-percent-remaining",
   integrityStatus: "integrity-status",
   supplyEmitted: "supply-emitted",
   supplyEmittedDetail: "supply-emitted-detail",
@@ -191,6 +193,8 @@ function renderMetrics(data) {
   setText(el.summaryRemaining, formatPct(percentRemaining));
   setText(el.summaryRemainingDetail, zecFromZats(currentOrchard));
   setCompactZec(el.summaryCurrentOrchard, el.summaryCurrentOrchardDetail, currentOrchard);
+  setText(el.factCurrentOrchard, compactZecFromZats(currentOrchard));
+  setText(el.factPercentRemaining, formatPct(percentRemaining));
 
   setCompactZec(el.supplyEmitted, el.supplyEmittedDetail, data.integrity.supply_emitted_zatoshis);
   setCompactZec(el.sumPools, el.sumPoolsDetail, data.integrity.sum_of_pools_zatoshis);
