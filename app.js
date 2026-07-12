@@ -1,436 +1,213 @@
-const ZATOSHIS = 100_000_000n;
+const ZAT = 100_000_000n;
+const $ = (id) => document.getElementById(id);
 
-const ids = {
-  syncStatus: "sync-status",
-  updatedAt: "updated-at",
-  summaryIntegrity: "summary-integrity",
-  summaryDifference: "summary-difference",
-  summaryRemaining: "summary-remaining",
-  summaryRemainingDetail: "summary-remaining-detail",
-  summaryCurrentOrchard: "summary-current-orchard",
-  summaryCurrentOrchardDetail: "summary-current-orchard-detail",
-  factCurrentOrchard: "fact-current-orchard",
-  factPercentRemaining: "fact-percent-remaining",
-  integrityStatus: "integrity-status",
-  supplyEmitted: "supply-emitted",
-  supplyEmittedDetail: "supply-emitted-detail",
-  sumPools: "sum-pools",
-  sumPoolsDetail: "sum-pools-detail",
-  difference: "difference",
-  differenceDetail: "difference-detail",
-  orchardShare: "orchard-share",
-  orchardShareDetail: "orchard-share-detail",
-  shieldedShare: "shielded-share",
-  shieldedShareDetail: "shielded-share-detail",
-  transparentShare: "transparent-share",
-  transparentShareDetail: "transparent-share-detail",
-  orchardDominance: "orchard-dominance",
-  orchardDominanceDetail: "orchard-dominance-detail",
-  healthIntegrity: "health-integrity",
-  patchBlock: "patch-block",
-  patchDate: "patch-date",
-  patchOrchard: "patch-orchard",
-  patchOrchardDetail: "patch-orchard-detail",
-  currentOrchard: "current-orchard",
-  currentOrchardDetail: "current-orchard-detail",
-  movedSincePatch: "moved-since-patch",
-  movedSincePatchDetail: "moved-since-patch-detail",
-  remainingSincePatch: "remaining-since-patch",
-  remainingSincePatchDetail: "remaining-since-patch-detail",
-  percentRemaining: "percent-remaining",
-  percentRemainingDetail: "percent-remaining-detail",
-  patchNetChange: "patch-net-change",
-  patchNetChangeDetail: "patch-net-change-detail",
-  patchNetChangePct: "patch-net-change-pct",
-  patchDailyChange: "patch-daily-change",
-  patchDailyChangeDetail: "patch-daily-change-detail",
-  patchWeeklyChange: "patch-weekly-change",
-  patchWeeklyChangeDetail: "patch-weekly-change-detail",
-  snapshotNu5: "snapshot-nu5",
-  snapshotNu5Detail: "snapshot-nu5-detail",
-  snapshotPatch: "snapshot-patch",
-  snapshotPatchDetail: "snapshot-patch-detail",
-  snapshotNow: "snapshot-now",
-  snapshotNowDetail: "snapshot-now-detail",
-  snapshotGrowth: "snapshot-growth",
-  snapshotChange: "snapshot-change",
-  shareHistoryCount: "share-history-count",
-  shareHistoryRange: "share-history-range",
-  historyCount: "history-count",
-  historyRange: "history-range",
-  tipHeight: "tip-height",
-  generatedAt: "generated-at",
-  footerUpdatedAt: "footer-updated-at",
-  chart: "orchard-chart",
-  shareChart: "share-chart",
-};
-
-const el = Object.fromEntries(
-  Object.entries(ids).map(([key, id]) => [key, document.getElementById(id)])
-);
-
-function zecFromZats(value) {
-  const zats = BigInt(value || 0);
-  const sign = zats < 0n ? "-" : "";
-  const abs = zats < 0n ? -zats : zats;
-  const whole = abs / ZATOSHIS;
-  const frac = String(abs % ZATOSHIS).padStart(8, "0").replace(/0+$/, "");
-  const number = Number(whole);
-  const formattedWhole = Number.isSafeInteger(number)
-    ? number.toLocaleString("en-US")
-    : whole.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return `${sign}${formattedWhole}${frac ? `.${frac}` : ""} ZEC`;
+function bigint(value) { return value === null || value === undefined ? null : BigInt(value); }
+function formatZec(value, compact = true) {
+  const raw = bigint(value);
+  if (raw === null) return "Not available";
+  const sign = raw < 0n ? "−" : raw > 0n ? "+" : "";
+  const abs = raw < 0n ? -raw : raw;
+  const whole = abs / ZAT;
+  const fraction = String(abs % ZAT).padStart(8, "0");
+  if (compact && whole >= 1_000_000n) return `${sign}${(Number(whole) / 1_000_000).toFixed(2)}M ZEC`;
+  if (compact && whole >= 10_000n) return `${sign}${(Number(whole) / 1_000).toFixed(1)}K ZEC`;
+  const grouped = whole.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return `${sign}${grouped}.${fraction.slice(0, compact ? 2 : 8)} ZEC`;
 }
+function pctBps(value) { return value == null ? "—" : `${(Number(value) / 10_000).toFixed(2)}%`; }
+function deltaPct(value) { if (value == null) return "—"; const n=Number(value)/10_000; return `${n>0?"+":n<0?"−":""}${Math.abs(n).toFixed(2)}%`; }
+function text(id, value) { const node = $(id); if (node) node.textContent = value; }
+function number(value) { return Number(value || 0).toLocaleString("en-US"); }
+function dateTime(value) { return new Intl.DateTimeFormat("en", {month:"short",day:"numeric",hour:"2-digit",minute:"2-digit",timeZone:"UTC",timeZoneName:"short"}).format(new Date(value)); }
+function deltaClass(value) { const n = bigint(value); return n === null || n === 0n ? "" : n > 0n ? "positive" : "negative"; }
 
-function compactZecFromZats(value) {
-  const zec = Number(value || 0) / 100_000_000;
-  const abs = Math.abs(zec);
-  const sign = zec < 0 ? "-" : "";
-
-  if (abs >= 1_000_000) return `${sign}${formatCompact(abs / 1_000_000)}M ZEC`;
-  if (abs >= 1_000) return `${sign}${formatCompact(abs / 1_000)}K ZEC`;
-  return `${sign}${formatCompact(abs)} ZEC`;
-}
-
-function compactZecFromZatsFixed(value, digits) {
-  const zec = Number(value || 0) / 100_000_000;
-  const abs = Math.abs(zec);
-  const sign = zec < 0 ? "-" : "";
-
-  if (abs >= 1_000_000) return `${sign}${(abs / 1_000_000).toFixed(digits)}M ZEC`;
-  if (abs >= 1_000) return `${sign}${(abs / 1_000).toFixed(digits)}K ZEC`;
-  return `${sign}${abs.toFixed(digits)} ZEC`;
-}
-
-function formatCompact(value) {
-  if (value === 0) return "0";
-  return new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: value < 10 ? 2 : 1,
-    maximumFractionDigits: value < 10 ? 2 : 1,
-  }).format(value);
-}
-
-function setMetric(node, value) {
-  if (!node) return;
-  const full = zecFromZats(value);
-  node.textContent = compactZecFromZats(value);
-  node.title = full;
-
-  const container = node.closest(".metric");
-  if (!container) return;
-
-  let detail = container.querySelector(".metric-full");
-  if (!detail) {
-    detail = document.createElement("small");
-    detail.className = "metric-full";
-    node.after(detail);
+function renderActivation(data) {
+  const activation = data.activation;
+  const ironwood = data.pools.ironwood;
+  const module = document.querySelector(".ironwood-core");
+  const proximity = Math.max(0, Math.min(1, 1 - Number(activation.blocks_remaining) / 25_000));
+  const urgency = Math.pow(proximity, 1.35);
+  module.style.setProperty("--orbit-a-speed", `${(28 - urgency * 20).toFixed(2)}s`);
+  module.style.setProperty("--orbit-b-speed", `${(20 - urgency * 14).toFixed(2)}s`);
+  module.style.setProperty("--orbit-c-speed", `${(14 - urgency * 10).toFixed(2)}s`);
+  module.style.setProperty("--pulse-speed", `${(2.8 - urgency * 1.45).toFixed(2)}s`);
+  module.style.setProperty("--grid-intensity", (0.15 + urgency * 0.13).toFixed(3));
+  module.style.setProperty("--orbit-intensity", (0.14 + urgency * 0.24).toFixed(3));
+  module.style.setProperty("--core-glow", `${Math.round(30 + urgency * 42)}px`);
+  module.style.setProperty("--core-halo", `${Math.round(110 + urgency * 85)}px`);
+  module.style.setProperty("--particle-scale", (1 + urgency * 0.65).toFixed(2));
+  text("current-height", number(activation.current_height));
+  text("blocks-remaining", number(activation.blocks_remaining));
+  text("ironwood-balance", formatZec(ironwood.balance_zatoshis));
+  text("ironwood-map-balance", formatZec(ironwood.balance_zatoshis));
+  $("activation-progress").style.width = `${Math.min(100, Number(activation.progress_bps) / 10000)}%`;
+  const labels = {
+    pending_activation: "Pending activation", supported_pre_activation: "Node ready · pre-activation",
+    activation_reached_waiting_data: "Activation reached · awaiting data", backfilling: "Backfilling chain",
+    active: "Ironwood active", stale: "Data stale", source_error: "Source error"
+  };
+  const label = labels[ironwood.status] || ironwood.status;
+  module.classList.toggle("is-active", ironwood.active);
+  module.classList.toggle("is-transitioning", activation.reached && !ironwood.active);
+  text("ironwood-status", label); text("ironwood-map-status", `${label} · ${pctBps(ironwood.supply_share_bps)} of supply`); text("ironwood-data-state", label);
+  if (ironwood.active) {
+    text("ironwood-status", "Live · Ironwood active");
+    document.querySelector(".core-label").textContent = "The shielded protocol is live";
+  } else if (activation.reached) {
+    document.querySelector(".core-label").textContent = "Activation reached · synchronizing";
   }
-  detail.textContent = full;
-}
-
-function compactDate(timestamp) {
-  return new Intl.DateTimeFormat("en", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  }).format(new Date(Number(timestamp) * 1000));
-}
-
-function fullDateTime(value) {
-  return new Intl.DateTimeFormat("en", {
-    timeZone: "UTC",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZoneName: "short",
-  }).format(new Date(value));
-}
-
-function setStatus(node, status, label) {
-  if (!node) return;
-  node.className = `status-pill status-${status.toLowerCase()}`;
-  node.textContent = label;
-}
-
-function formatPct(value) {
-  return `${Number(value || 0).toFixed(2)}%`;
-}
-
-function setText(node, value) {
-  if (node) node.textContent = value;
-}
-
-function setCompactZec(primaryNode, detailNode, value) {
-  setText(primaryNode, compactZecFromZats(value));
-  setText(detailNode, zecFromZats(value));
-  if (primaryNode) primaryNode.title = zecFromZats(value);
-}
-
-function setHealthText(node, status) {
-  if (!node) return;
-  node.textContent = status;
-  node.className = `health-value health-${status.toLowerCase()}`;
-}
-
-function renderMetrics(data) {
-  const pools = data.current.pools;
-  const patch = data.patch || {};
-  const patchOrchard = BigInt(patch.orchard_balance_zatoshis || 0);
-  const currentOrchard = BigInt(patch.current_orchard_balance_zatoshis || pools.orchard_zatoshis || 0);
-  const orchard = BigInt(pools.orchard_zatoshis || 0);
-  const sapling = BigInt(pools.sapling_zatoshis || 0);
-  const sprout = BigInt(pools.sprout_zatoshis || 0);
-  const transparent = BigInt(pools.transparent_zatoshis || 0);
-  const shielded = orchard + sapling + sprout;
-  const percentRemaining = patchOrchard > 0n
-    ? (Number(currentOrchard) / Number(patchOrchard)) * 100
-    : 0;
-
-  setHealthText(el.summaryIntegrity, data.integrity.status);
-  setText(el.summaryDifference, zecFromZats(data.integrity.difference_zatoshis));
-  setText(el.summaryRemaining, formatPct(percentRemaining));
-  setText(el.summaryRemainingDetail, zecFromZats(currentOrchard));
-  setCompactZec(el.summaryCurrentOrchard, el.summaryCurrentOrchardDetail, currentOrchard);
-  setText(el.factCurrentOrchard, compactZecFromZats(currentOrchard));
-  setText(el.factPercentRemaining, formatPct(percentRemaining));
-
-  setCompactZec(el.supplyEmitted, el.supplyEmittedDetail, data.integrity.supply_emitted_zatoshis);
-  setCompactZec(el.sumPools, el.sumPoolsDetail, data.integrity.sum_of_pools_zatoshis);
-  setCompactZec(el.difference, el.differenceDetail, data.integrity.difference_zatoshis);
-  setStatus(el.integrityStatus, data.integrity.status, data.integrity.status);
-  setHealthText(el.healthIntegrity, data.integrity.status);
-
-  if (data.adoption) {
-    setText(el.orchardShare, formatPct(data.adoption.orchard_share_of_supply_pct));
-    setText(el.orchardShareDetail, zecFromZats(orchard));
-    setText(el.shieldedShare, formatPct(data.adoption.total_shielded_share_pct));
-    setText(el.shieldedShareDetail, zecFromZats(shielded));
-    setText(el.transparentShare, formatPct(data.adoption.transparent_share_pct));
-    setText(el.transparentShareDetail, zecFromZats(transparent));
-    setText(el.orchardDominance, formatPct(data.adoption.orchard_dominance_pct));
-    setText(el.orchardDominanceDetail, `${zecFromZats(orchard)} of ${zecFromZats(shielded)}`);
-  }
-
-  setStatus(el.syncStatus, data.integrity.status, data.current.info?.status || data.integrity.status);
-  setText(el.updatedAt, `Updated ${fullDateTime(data.generated_at)}`);
-  setText(el.generatedAt, fullDateTime(data.generated_at));
-  setText(el.footerUpdatedAt, fullDateTime(data.generated_at));
-  setText(el.tipHeight, data.current.info?.chain_tip?.toLocaleString("en-US") || "-");
-
-  if (data.patch) {
-    setText(el.patchBlock, data.patch.block.toLocaleString("en-US"));
-    setText(el.patchDate, fullDateTime(Number(data.patch.timestamp) * 1000));
-    setCompactZec(el.patchOrchard, el.patchOrchardDetail, data.patch.orchard_balance_zatoshis);
-    setCompactZec(el.currentOrchard, el.currentOrchardDetail, data.patch.current_orchard_balance_zatoshis);
-    setCompactZec(el.movedSincePatch, el.movedSincePatchDetail, data.patch.moved_since_patch_zatoshis);
-    setCompactZec(el.remainingSincePatch, el.remainingSincePatchDetail, data.patch.current_orchard_balance_zatoshis);
-    setText(el.percentRemaining, formatPct(percentRemaining));
-    setText(el.percentRemainingDetail, zecFromZats(data.patch.current_orchard_balance_zatoshis));
-    setCompactZec(el.patchNetChange, el.patchNetChangeDetail, data.patch.net_change_zatoshis);
-    setText(el.patchNetChangePct, formatPct(data.patch.net_change_pct));
-    setCompactZec(el.patchDailyChange, el.patchDailyChangeDetail, data.patch.daily_change_zatoshis);
-    setCompactZec(el.patchWeeklyChange, el.patchWeeklyChangeDetail, data.patch.weekly_change_zatoshis);
-  }
-
-  if (data.historical_snapshots) {
-    const snapshots = data.historical_snapshots;
-    setCompactZec(el.snapshotNu5, el.snapshotNu5Detail, snapshots.nu5.orchard_balance_zatoshis);
-    setCompactZec(el.snapshotPatch, el.snapshotPatchDetail, snapshots.patch.orchard_balance_zatoshis);
-    setCompactZec(el.snapshotNow, el.snapshotNowDetail, snapshots.current.orchard_balance_zatoshis);
-    setText(el.snapshotGrowth, zecFromZats(snapshots.growth_since_nu5_zatoshis));
-    setText(el.snapshotChange, zecFromZats(snapshots.change_since_patch_zatoshis));
-  }
-}
-
-function renderShareChart(history) {
-  const svg = el.shareChart;
-  svg.textContent = "";
-
-  const points = history
-    .filter((point) => Number(point.timestamp) > 0)
-    .map((point) => ({
-      x: Number(point.timestamp),
-      orchard: Number(point.orchard_pct || 0),
-      sapling: Number(point.sapling_pct || 0),
-      transparent: Number(point.transparent_pct || 0),
-    }));
-
-  el.shareHistoryCount.textContent = `${points.length.toLocaleString("en-US")} points`;
-  if (!points.length) {
-    el.shareHistoryRange.textContent = "No history";
+  text("zebra-ready", ironwood.supported ? "Zebra reports Ironwood support" : "Zebra source not configured");
+  text("readiness-state", ironwood.supported ? "Ready" : "Watching");
+  text("ironwood-net", formatZec(ironwood.net_change_24h_zatoshis));
+  text("ironwood-since", formatZec(ironwood.net_change_since_activation_zatoshis));
+  text("ironwood-message", ironwood.active
+    ? "Ironwood is active. Verified block history is being collected automatically."
+    : "Collection begins automatically at activation. No synthetic observations are stored.");
+  const target = new Date(activation.estimated_at).getTime();
+  if (ironwood.active) {
+    $("countdown").innerHTML = `<div class="activated-at"><b>ACTIVE</b><span>since block ${number(activation.height)}</span></div>`;
     return;
   }
-
-  el.shareHistoryRange.textContent = `${compactDate(points[0].x)} - ${compactDate(points[points.length - 1].x)}`;
-
-  const width = 1100;
-  const height = 420;
-  const margin = { top: 24, right: 28, bottom: 56, left: 64 };
-  const innerW = width - margin.left - margin.right;
-  const innerH = height - margin.top - margin.bottom;
-  const minX = points[0].x;
-  const maxX = points[points.length - 1].x;
-  const scaleX = (x) => margin.left + ((x - minX) / Math.max(1, maxX - minX)) * innerW;
-  const scaleY = (y) => margin.top + innerH - (y / 100) * innerH;
-
-  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-  svg.setAttribute("preserveAspectRatio", "none");
-
-  for (let i = 0; i <= 4; i += 1) {
-    const yValue = i * 25;
-    const y = scaleY(yValue);
-    addLine(svg, margin.left, y, width - margin.right, y, "grid-line");
-    addText(svg, margin.left - 12, y + 4, `${yValue}%`, "axis-text", "end");
+  function tick() {
+    const diff = Math.max(0, target - Date.now());
+    const values = [Math.floor(diff / 86400000), Math.floor(diff / 3600000) % 24, Math.floor(diff / 60000) % 60, Math.floor(diff / 1000) % 60];
+    $("countdown").querySelectorAll("b").forEach((node, index) => node.textContent = String(values[index]).padStart(2, "0"));
   }
+  tick(); setInterval(tick, 1000);
+}
 
-  for (let i = 0; i <= 3; i += 1) {
-    const xValue = minX + ((maxX - minX) / 3) * i;
-    const x = scaleX(xValue);
-    addText(svg, x, height - 20, compactDate(xValue), "axis-text", "middle");
+function renderSupply(data) {
+  const supply = data.supply;
+  text("shielded-total", formatZec(supply.shielded_zatoshis));
+  text("transparent-total", formatZec(supply.transparent_zatoshis));
+  text("shielded-share", `${pctBps(supply.shielded_share_bps)} of emitted supply`);
+  text("shielded-percent", pctBps(supply.shielded_share_bps));
+  text("transparent-percent", pctBps(supply.transparent_share_bps));
+  text("shielded-day", formatZec(supply.net_change_24h_zatoshis));
+  text("shielded-week", formatZec(supply.net_change_7d_zatoshis));
+  const percent = Number(supply.shielded_share_bps || 0) / 10000;
+  $("shielded-bar").style.width = `${percent}%`;
+  $("shielded-ring").style.strokeDashoffset = String(615.75 * (1 - percent / 100));
+}
+
+function renderPool(name, pool) {
+  text(`${name}-balance`, formatZec(pool.balance_zatoshis));
+  text(`${name}-share`, `${pctBps(pool.shielded_share_bps)} shielded · ${pctBps(pool.supply_share_bps)} total supply`);
+  for (const [period, field] of [["day", "net_change_24h_zatoshis"], ["week", "net_change_7d_zatoshis"]]) {
+    const node = $(`${name}-${period}`); if (!node) continue;
+    node.textContent = formatZec(pool[field]); node.className = deltaClass(pool[field]);
   }
-
-  addPath(svg, lineFor(points, "transparent", scaleX, scaleY), "share-line transparent-line");
-  addPath(svg, lineFor(points, "orchard", scaleX, scaleY), "share-line orchard-line");
-  addPath(svg, lineFor(points, "sapling", scaleX, scaleY), "share-line sapling-line");
-  addLegend(svg, 760, 28, "Transparent", "transparent-dot");
-  addLegend(svg, 880, 28, "Orchard", "orchard-dot");
-  addLegend(svg, 976, 28, "Sapling", "sapling-dot");
+  const since = $(`${name}-since`);
+  if (since) { since.textContent = formatZec(pool.net_change_since_activation_zatoshis); since.className = deltaClass(pool.net_change_since_activation_zatoshis); }
 }
 
-function lineFor(points, key, scaleX, scaleY) {
-  return points
-    .map((point, index) => `${index === 0 ? "M" : "L"} ${scaleX(point.x).toFixed(2)} ${scaleY(point[key]).toFixed(2)}`)
-    .join(" ");
+function renderSpark(id, history, key, color) {
+  const svg = $(id); const points = history.filter((p) => p[key] != null).slice(-45);
+  if (points.length < 2) return;
+  const vals = points.map((p) => Number(p[key])); const min = Math.min(...vals), max = Math.max(...vals);
+  const d = vals.map((v, i) => `${i ? "L" : "M"}${(i/(vals.length-1)*240).toFixed(1)},${(50-(v-min)/Math.max(1,max-min)*42).toFixed(1)}`).join(" ");
+  svg.innerHTML = `<path d="${d}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
 }
 
-function renderChart(history, patch) {
-  const svg = el.chart;
-  svg.textContent = "";
-
-  const points = history
-    .filter((point) => Number(point.orchard_zatoshis) > 0)
-    .map((point) => ({
-      x: Number(point.timestamp),
-      y: Number(point.orchard_zatoshis) / 100_000_000,
-      height: point.height,
-    }));
-
-  el.historyCount.textContent = `${points.length.toLocaleString("en-US")} points`;
-  if (!points.length) {
-    el.historyRange.textContent = "No Orchard history";
-    return;
-  }
-
-  el.historyRange.textContent = `${compactDate(points[0].x)} - ${compactDate(points[points.length - 1].x)}`;
-
-  const width = 1100;
-  const height = 420;
-  const margin = { top: 24, right: 28, bottom: 42, left: 82 };
-  const innerW = width - margin.left - margin.right;
-  const innerH = height - margin.top - margin.bottom;
-  const minX = points[0].x;
-  const maxX = points[points.length - 1].x;
-  const minY = 0;
-  const maxY = Math.max(...points.map((point) => point.y));
-  const yPad = maxY * 0.06;
-
-  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-  svg.setAttribute("preserveAspectRatio", "none");
-
-  const scaleX = (x) => margin.left + ((x - minX) / Math.max(1, maxX - minX)) * innerW;
-  const scaleY = (y) => margin.top + innerH - ((y - minY) / Math.max(1, maxY + yPad - minY)) * innerH;
-
-  const linePath = points
-    .map((point, index) => `${index === 0 ? "M" : "L"} ${scaleX(point.x).toFixed(2)} ${scaleY(point.y).toFixed(2)}`)
-    .join(" ");
-  const areaPath = `${linePath} L ${scaleX(points[points.length - 1].x).toFixed(2)} ${scaleY(0).toFixed(2)} L ${scaleX(points[0].x).toFixed(2)} ${scaleY(0).toFixed(2)} Z`;
-
-  for (let i = 0; i <= 4; i += 1) {
-    const yValue = (maxY / 4) * i;
-    const y = scaleY(yValue);
-    addLine(svg, margin.left, y, width - margin.right, y, "grid-line");
-    addText(svg, margin.left - 12, y + 4, `${Math.round(yValue).toLocaleString("en-US")}`, "axis-text", "end");
-  }
-
-  for (let i = 0; i <= 3; i += 1) {
-    const xValue = minX + ((maxX - minX) / 3) * i;
-    const x = scaleX(xValue);
-    addText(svg, x, height - 14, compactDate(xValue), "axis-text", "middle");
-  }
-
-  addPath(svg, areaPath, "chart-area");
-  addPath(svg, linePath, "chart-line");
-
-  if (patch?.timestamp) {
-    const patchX = Number(patch.timestamp);
-    if (patchX >= minX && patchX <= maxX) {
-      const x = scaleX(patchX);
-      addLine(svg, x, margin.top, x, margin.top + innerH, "patch-marker-line");
-      addText(
-        svg,
-        x > width - 180 ? x - 10 : x + 10,
-        margin.top + 16,
-        "June 2026 Patch",
-        "patch-marker-text",
-        x > width - 180 ? "end" : "start"
-      );
-    }
-  }
+function chartPoints(history, ironwoodHistory) {
+  let ironwoodIndex = -1;
+  return history.map((point) => {
+    while (ironwoodIndex + 1 < ironwoodHistory.length && Number(ironwoodHistory[ironwoodIndex + 1].height) <= Number(point.height)) ironwoodIndex += 1;
+    return {
+      ...point,
+      ironwood: ironwoodIndex >= 0 ? ironwoodHistory[ironwoodIndex].balance_zatoshis : null,
+    };
+  });
 }
 
-function addPath(svg, d, className) {
-  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute("d", d);
-  path.setAttribute("class", className);
-  svg.appendChild(path);
+function renderChart(history, ironwoodHistory = [], range = "all") {
+  const svg = $("history-chart");
+  const latest = history.at(-1)?.timestamp || 0;
+  const cutoff = range === "all" ? 0 : latest - Number(range) * 86400;
+  let points = chartPoints(history, ironwoodHistory).filter((p) => p.timestamp >= cutoff && (p.sapling != null || p.orchard != null));
+  if (!points.length) { svg.innerHTML = `<text class="chart-label" x="450" y="180" text-anchor="middle">No observations in this interval</text>`; return; }
+  const width=900,height=360,m={t:18,r:20,b:34,l:64},iw=width-m.l-m.r,ih=height-m.t-m.b;
+  const max=Math.max(...points.flatMap((p)=>[Number(p.transparent||0),Number(p.sapling||0),Number(p.orchard||0),Number(p.ironwood||0)]),1);
+  const x=(i)=>m.l+(points.length === 1 ? iw/2 : i/(points.length-1)*iw), y=(v)=>m.t+ih-Number(v)/max*ih;
+  const path=(key)=>{let drawing=false;return points.map((p,i)=>{if(p[key]==null){drawing=false;return ""}const command=drawing?"L":"M";drawing=true;return `${command}${x(i).toFixed(1)},${y(p[key]).toFixed(1)}`}).join(" ")};
+  let html=`<defs><linearGradient id="orchardGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86d8a7" stop-opacity=".14"/><stop offset="1" stop-color="#86d8a7" stop-opacity="0"/></linearGradient></defs>`;
+  for(let i=0;i<5;i++){const yy=m.t+i*ih/4;const zec=Math.round(max*(4-i)/4/1e8);const val=zec>=1e6?(zec/1e6).toFixed(1)+'M':Math.round(zec/1e3)+'K';html+=`<line class="chart-grid" x1="${m.l}" y1="${yy}" x2="${width-m.r}" y2="${yy}"/><text class="chart-label" x="${m.l-10}" y="${yy+3}" text-anchor="end">${val}</text>`;}
+  const orchard=path("orchard"); html+=`<path class="area-orchard" d="${orchard} L${width-m.r},${height-m.b} L${m.l},${height-m.b}Z"/><path class="chart-path" stroke="#8ec5d6" d="${path("transparent")}"/><path class="chart-path" stroke="#86d8a7" d="${orchard}"/><path class="chart-path" stroke="#b6a98a" d="${path("sapling")}"/>`;
+  if(points.some(p=>p.ironwood!=null)) html+=`<path class="chart-path" stroke="#c9ff6a" d="${path("ironwood")}"/>`;
+  [0,.5,1].forEach((r)=>{const p=points[Math.round((points.length-1)*r)];html+=`<text class="chart-label" x="${m.l+iw*r}" y="${height-10}" text-anchor="${r===0?'start':r===1?'end':'middle'}">${new Date(p.timestamp*1000).toLocaleDateString('en',{year:'numeric',month:'short',day:range==='all'?undefined:'numeric'})}</text>`});
+  svg.innerHTML=html;
 }
 
-function addLine(svg, x1, y1, x2, y2, className) {
-  const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-  line.setAttribute("x1", x1);
-  line.setAttribute("y1", y1);
-  line.setAttribute("x2", x2);
-  line.setAttribute("y2", y2);
-  line.setAttribute("class", className);
-  svg.appendChild(line);
+function visibleRangePoints(data, range) {
+  const merged=chartPoints(data.history,data.ironwood_history||[]);
+  const latest=merged.at(-1)?.timestamp||0;
+  const cutoff=range==="all"?0:latest-Number(range)*86400;
+  return merged.filter((point)=>point.timestamp>=cutoff);
 }
 
-function addText(svg, x, y, text, className, anchor) {
-  const node = document.createElementNS("http://www.w3.org/2000/svg", "text");
-  node.setAttribute("x", x);
-  node.setAttribute("y", y);
-  node.setAttribute("class", className);
-  node.setAttribute("text-anchor", anchor);
-  node.textContent = text;
-  svg.appendChild(node);
+function pointShielded(point) {
+  return ["sprout","sapling","orchard","ironwood"].reduce((sum,key)=>sum+BigInt(point[key]||0),0n);
 }
 
-function addLegend(svg, x, y, label, dotClass) {
-  const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-  circle.setAttribute("cx", x);
-  circle.setAttribute("cy", y - 4);
-  circle.setAttribute("r", 5);
-  circle.setAttribute("class", dotClass);
-  svg.appendChild(circle);
-  addText(svg, x + 10, y, label, "axis-text", "start");
+function pointTotal(point) {
+  return ["transparent","sprout","sapling","orchard","ironwood","lockbox"].reduce((sum,key)=>sum+BigInt(point[key]||0),0n);
 }
 
-async function init() {
-  try {
-    const response = await fetch("data/data.json", { cache: "no-store" });
-    if (!response.ok) throw new Error(`Unable to load data/data.json: ${response.status}`);
-    const data = await response.json();
-    renderMetrics(data);
-    renderShareChart(data.share_history || []);
-    renderChart(data.history || [], data.patch);
-  } catch (error) {
-    console.error(error);
-    setStatus(el.syncStatus, "alert", "Error");
-    setStatus(el.integrityStatus, "alert", "Error");
-    el.updatedAt.textContent = "Unable to load dataset";
-  }
+function pointShare(part, total) {
+  return total===0n?0:Number(part*1_000_000n/total)/10_000;
 }
 
+function renderRangeLens(data, range="all") {
+  const points=visibleRangePoints(data,range),start=points[0],end=points.at(-1);
+  if (!start || !end) return;
+  const shortDate=(timestamp)=>new Date(timestamp*1000).toLocaleDateString("en",{month:"short",year:"numeric"});
+  text("lens-dates",`${shortDate(start.timestamp)} — ${shortDate(end.timestamp)}`);
+  text("lens-blocks",`Block ${number(start.height)} → ${number(end.height)}`);
+  const startShielded=pointShielded(start),endShielded=pointShielded(end),startTotal=pointTotal(start),endTotal=pointTotal(end);
+  const startShare=pointShare(startShielded,startTotal),endShare=pointShare(endShielded,endTotal),shareChange=endShare-startShare;
+  text("lens-shielded-share",`${endShare.toFixed(2)}%`);
+  text("lens-share-change",`${shareChange>0?"+":shareChange<0?"−":""}${Math.abs(shareChange).toFixed(2)} percentage points`);
+  const rows=[
+    ["Transparent",bigint(end.transparent),"transparent"],
+    ["Orchard",bigint(end.orchard),"orchard"],
+    ["Sapling",bigint(end.sapling),"sapling"],
+    ["Ironwood",end.ironwood==null?null:bigint(end.ironwood),"ironwood"],
+  ];
+  $("lens-pools").innerHTML=rows.map(([name,value,className])=>{
+    const share=value==null?null:pointShare(value,endTotal);
+    return `<div class="lens-pool ${className}"><div><span>${name}</span><b>${share==null?"—":`${share.toFixed(2)}%`}</b></div><div class="lens-bar"><i style="width:${share==null?0:Math.max(.4,share)}%"></i></div><small>${value==null?"Pending activation":formatZec(value)}</small></div>`;
+  }).join("");
+  const netShielded=endShielded-startShielded;
+  text("lens-net-shielded",formatZec(netShielded));
+  $("lens-net-shielded").className=deltaClass(netShielded);
+  text("lens-period-label",({all:"Across all available history","365":"Across the selected year","30":"Across the selected 30 days","7":"Across the selected 7 days","1":"Across the selected 24 hours"})[range]);
+}
+
+function renderIntegrity(data) {
+  const diff=bigint(data.supply.accounting_difference_zatoshis); text("accounting-diff",formatZec(diff,false));
+  const ok=diff===0n; text("integrity-icon",ok?"✓":"!"); text("integrity-copy",ok?"Public value-pool accounting balances":"Accounting difference detected");
+  text("chain-status",`${data.health.chain_status} · ${data.health.status}`); text("last-update",dateTime(data.generated_at));
+  text("footer-tip",number(data.activation.current_height)); text("footer-time",dateTime(data.generated_at));
+  $("live-dot").style.background=data.health.status==="ok"?"var(--lime)":"var(--danger)";
+  const supply=data.supply,pools=data.pools,legacy=bigint(supply.legacy_sprout_zatoshis||0)+bigint(supply.lockbox_zatoshis||0);
+  text("eq-transparent",formatZec(supply.transparent_zatoshis));text("eq-sapling",formatZec(pools.sapling.balance_zatoshis));text("eq-orchard",formatZec(pools.orchard.balance_zatoshis));text("eq-ironwood",formatZec(pools.ironwood.balance_zatoshis));text("eq-legacy",formatZec(legacy));
+  text("emitted-supply",formatZec(supply.total_zatoshis));text("accounted-supply",formatZec(bigint(supply.total_zatoshis)-diff));text("integrity-difference",formatZec(diff,false));
+  const balanced=diff===0n, active=pools.ironwood.active, reached=data.activation.reached;
+  text("assurance-state",balanced?(active?"Supply bound active":"Public accounting balanced"):"Accounting discrepancy");
+  text("turnstile-state",active?"Active · consensus enforced":reached?"Activation reached · verifying":"Pending NU6.3");
+  text("assurance-message",active?"Ironwood consensus rules prevent excess ZEC from being accepted out of Orchard, restoring a verifiable upper bound on circulating supply.":"Public value-pool accounting currently matches the emitted ZEC supply.");
+  text("integrity-proof-copy",active?"Ironwood is active. Its turnstile rules prevent excess value from leaving Orchard and entering circulation.":"All public value pools currently add up to the emitted ZEC supply. After NU6.3, Ironwood’s turnstile rules will prevent excess value from leaving Orchard and entering circulation.");
+  $("assurance-light").style.background=balanced?(active?"#f4b728":"var(--lime)"):"var(--danger)";
+}
+
+async function init(){
+  try{
+    const response=await fetch("data/data.json",{cache:"no-store"}); if(!response.ok)throw new Error(response.status);
+    const data=await response.json(); renderActivation(data); renderSupply(data); renderPool("sapling",data.pools.sapling); renderPool("orchard",data.pools.orchard);
+    let selectedRange="all";const redraw=()=>{renderChart(data.history,data.ironwood_history||[],selectedRange);renderRangeLens(data,selectedRange)};
+    renderSpark("sapling-spark",data.history,"sapling","#b6a98a"); renderSpark("orchard-spark",data.history,"orchard","#86d8a7"); redraw(); renderIntegrity(data);
+    document.querySelectorAll("[data-range]").forEach((button)=>button.addEventListener("click",()=>{document.querySelectorAll("[data-range]").forEach(b=>b.classList.remove("active"));button.classList.add("active");selectedRange=button.dataset.range;redraw()}));
+  }catch(error){console.error(error);text("chain-status","Dataset unavailable");$("live-dot").style.background="var(--danger)";}
+  const observer=new IntersectionObserver((entries)=>entries.forEach((entry)=>entry.isIntersecting&&entry.target.classList.add("visible")),{threshold:.08});document.querySelectorAll(".reveal").forEach((node)=>observer.observe(node));
+}
 init();

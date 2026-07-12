@@ -1,354 +1,129 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Orchard Integrity Monitor</title>
-    <meta name="description" content="Public Zcash supply and value pool monitor.">
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <header class="topbar">
-      <div>
-        <p class="eyebrow">Zcash Value Pools</p>
-        <div class="title-row">
-          <h1>Orchard Integrity Monitor</h1>
-          <span class="refresh-badge">Scheduled Hourly</span>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070809">
+  <meta name="description" content="A live, evidence-led view of Zcash shielded supply approaching the Ironwood era.">
+  <title>Zcash Shielded Observatory — Ironwood Transition</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+  <header class="nav shell">
+    <a class="brand" href="#top" aria-label="Zcash Shielded Observatory home">
+      <span class="brand-mark"><img src="assets/zcash-brandmark-yellow.svg" alt=""></span><span>Shielded<br><b>Observatory</b></span>
+    </a>
+    <nav aria-label="Sections"><a href="#ecosystem">Overview</a><a href="#protocol-evolution">Protocol Evolution</a><a href="#supply-integrity">Supply Integrity</a><a href="#activity">Activity</a></nav>
+    <div class="live"><span id="live-dot"></span><b id="chain-status">Loading chain</b><small id="last-update">—</small></div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy reveal">
+        <p class="kicker">NU6.3 · Mainnet transition monitor</p>
+        <h1>A new era for<br>Zcash <em>shielded value.</em></h1>
+        <p class="lede">Following the public evolution of shielded supply from Sapling and Orchard toward Ironwood — without claiming links the chain cannot prove.</p>
+        <div class="hero-facts">
+          <div><span>Current height</span><strong id="current-height">—</strong></div>
+          <div><span>Activation height</span><strong>3,428,143</strong></div>
         </div>
-        <p class="subtitle">Public value-pool accounting and post-patch tracking for the June 2026 Orchard vulnerability.</p>
       </div>
-      <div class="source">
-        <span id="sync-status" class="status-pill status-loading">Loading</span>
-        <span id="updated-at">Waiting for data</span>
+
+      <article class="ironwood-core reveal" aria-labelledby="ironwood-title">
+        <div class="core-grid" aria-hidden="true"></div>
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit orbit-c"></div>
+        <div class="core" role="img" aria-label="Ironwood visual identifier — not an official logo" title="Ironwood visual identifier — not an official logo">
+          <svg class="ironwood-glyph" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="wood-ring ring-one" d="M60 15C82 15 101 33 103 55c2 22-13 43-35 49-22 6-46-7-53-29-7-22 4-47 25-56 6-3 13-4 20-4Z"/>
+            <path class="wood-ring ring-two" d="M61 31c15 0 28 11 30 26 2 16-8 31-23 35-16 4-32-5-37-20-5-16 3-33 18-39 4-2 8-2 12-2Z"/>
+            <path class="wood-ring ring-three" d="M60 46c9 0 16 7 16 15s-7 15-16 15-16-7-16-15 7-15 16-15Z"/>
+            <path class="wood-signal" d="M22 64h22l7-10 9 18 9-25 8 17h22"/>
+          </svg>
+          <span class="core-pulse"></span>
+        </div>
+        <div class="core-content">
+          <div class="status-row"><span id="ironwood-status" class="pill pending">Pending activation</span><span id="zebra-ready" class="readiness">Awaiting Zebra source</span></div>
+          <p class="core-label">The destination protocol</p>
+          <h2 id="ironwood-title">IRONWOOD</h2>
+          <div class="countdown" id="countdown"><div><b>—</b><span>days</span></div><div><b>—</b><span>hours</span></div><div><b>—</b><span>minutes</span></div><div><b>—</b><span>seconds</span></div></div>
+          <div class="progress"><i id="activation-progress"></i></div>
+          <div class="core-stats">
+            <div><span>Blocks remaining</span><b id="blocks-remaining">—</b></div>
+            <div><span>Pool balance</span><b id="ironwood-balance">—</b></div>
+            <div><span>Readiness</span><b id="readiness-state">Watching</b></div>
+          </div>
+          <p id="ironwood-message" class="core-note">Collection begins automatically at activation. No synthetic observations are stored.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="ecosystem" class="section shell">
+      <div class="section-head reveal"><div><p class="kicker">Public value-pool accounting</p><h2>The shielded ecosystem</h2></div><p>One supply, two observable states. Legacy Sprout value remains included in shielded accounting but outside the primary visual hierarchy.</p></div>
+      <div class="supply-stage reveal">
+        <div class="supply-rings">
+          <svg viewBox="0 0 240 240" aria-label="Shielded versus transparent supply"><circle class="ring-track" cx="120" cy="120" r="98"/><circle id="shielded-ring" class="ring-value" cx="120" cy="120" r="98"/></svg>
+          <div><span>Currently shielded</span><strong id="shielded-total">—</strong><b id="shielded-share">—</b></div>
+        </div>
+        <div class="supply-balance">
+          <div class="balance-label"><span>Shielded supply</span><b id="shielded-percent">—</b></div>
+          <div class="balance-track"><i id="shielded-bar"></i></div>
+          <div class="balance-label transparent"><span>Transparent supply</span><b id="transparent-percent">—</b></div>
+          <strong id="transparent-total">—</strong>
+          <p>“Transparent supply” describes value currently held in the transparent pool. It is not synonymous with a provable deshielding event.</p>
+        </div>
+        <div class="supply-movement"><span>Net movement across shielded pools</span><strong id="shielded-day">—</strong><small>latest 24h snapshot interval</small><div><span>7 day</span><b id="shielded-week">—</b></div></div>
       </div>
-    </header>
+    </section>
 
-    <main>
-      <section class="hero-grid" aria-label="Orchard integrity summary">
-        <article class="metric">
-          <span>Supply Integrity</span>
-          <strong id="summary-integrity">-</strong>
-        </article>
-        <article class="metric">
-          <span>Pool Accounting Difference</span>
-          <strong id="summary-difference">-</strong>
-        </article>
-        <article class="metric">
-          <span>Orchard Remaining Since Patch</span>
-          <strong id="summary-remaining">-</strong>
-          <small id="summary-remaining-detail">-</small>
-        </article>
-        <article class="metric">
-          <span>Current Orchard Balance</span>
-          <strong id="summary-current-orchard">-</strong>
-          <small id="summary-current-orchard-detail">-</small>
-        </article>
-      </section>
-
-      <section class="panel meaning-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Publicly Observable Facts</p>
-            <h2>Current Public Evidence</h2>
-          </div>
-        </div>
-        <ul class="plain-list">
-          <li>Public value-pool accounting currently balances.</li>
-          <li>Sum of all pools equals emitted ZEC supply.</li>
-          <li>No public value-pool discrepancy has been observed.</li>
-          <li>Orchard currently contains <span id="fact-current-orchard">the current Orchard balance</span>.</li>
-          <li><span id="fact-percent-remaining">The current percentage</span> of Orchard funds present at patch time remain in Orchard.</li>
-          <li>Orchard remains the dominant shielded pool.</li>
-        </ul>
-      </section>
-
-      <section class="panel patch-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Post-Patch Monitor</p>
-            <h2>Orchard Movement Since Patch Block</h2>
-          </div>
-        </div>
-
-        <div class="patch-grid">
-          <div>
-            <span>Patch Block</span>
-            <strong id="patch-block">-</strong>
-          </div>
-          <div>
-            <span>Patch Date</span>
-            <strong id="patch-date">-</strong>
-          </div>
-          <div>
-            <span>Patch Orchard Balance</span>
-            <strong id="patch-orchard">-</strong>
-            <small id="patch-orchard-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Current Orchard Balance</span>
-            <strong id="current-orchard">-</strong>
-            <small id="current-orchard-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Net Orchard Reduction Since Patch</span>
-            <strong id="moved-since-patch">-</strong>
-            <small id="moved-since-patch-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Remaining Orchard Since Patch</span>
-            <strong id="remaining-since-patch">-</strong>
-            <small id="remaining-since-patch-detail" class="value-detail">-</small>
-          </div>
-          <div class="highlight-tile">
-            <span>Percent Remaining Since Patch</span>
-            <strong id="percent-remaining">-</strong>
-            <small id="percent-remaining-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Net Change</span>
-            <strong id="patch-net-change">-</strong>
-            <small id="patch-net-change-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Net Change %</span>
-            <strong id="patch-net-change-pct">-</strong>
-          </div>
-          <div>
-            <span>Latest Interval Orchard Change</span>
-            <strong id="patch-daily-change">-</strong>
-            <small id="patch-daily-change-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Weekly Change</span>
-            <strong id="patch-weekly-change">-</strong>
-            <small id="patch-weekly-change-detail" class="value-detail">-</small>
-          </div>
-        </div>
-      </section>
-
-      <section class="panel integrity-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Supply Integrity</p>
-            <h2>Supply Emitted vs Sum of Pools</h2>
-          </div>
-          <span id="integrity-status" class="status-pill status-loading">Loading</span>
-        </div>
-
-        <div class="integrity-grid">
-          <div>
-            <span>Supply Emitted</span>
-            <strong id="supply-emitted">-</strong>
-            <small id="supply-emitted-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Sum of Pools</span>
-            <strong id="sum-pools">-</strong>
-            <small id="sum-pools-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Difference</span>
-            <strong id="difference">-</strong>
-            <small id="difference-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Status</span>
-            <strong id="health-integrity">-</strong>
-          </div>
-        </div>
-        <p class="section-note">Includes Transparent, Orchard, Sapling, Sprout and Lockbox pools.</p>
-      </section>
-
-      <section class="panel adoption-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Privacy Adoption</p>
-            <h2>Zcash Pool Share Metrics</h2>
-          </div>
-        </div>
-
-        <div class="patch-grid">
-          <div>
-            <span>Orchard Share of Supply</span>
-            <strong id="orchard-share">-</strong>
-            <small id="orchard-share-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Total Shielded Share</span>
-            <strong id="shielded-share">-</strong>
-            <small id="shielded-share-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Transparent Share</span>
-            <strong id="transparent-share">-</strong>
-            <small id="transparent-share-detail" class="value-detail">-</small>
-          </div>
-          <div>
-            <span>Orchard Dominance Among Shielded Funds</span>
-            <strong id="orchard-dominance">-</strong>
-            <small id="orchard-dominance-detail" class="value-detail">-</small>
-          </div>
-        </div>
-      </section>
-
-      <section class="panel snapshots-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Orchard Timeline</p>
-            <h2>NU5 Activation to Today</h2>
-          </div>
-        </div>
-
-        <div class="timeline" aria-label="Orchard timeline">
-          <div class="timeline-item">
-            <span class="timeline-step">NU5 Activation</span>
-            <span class="timeline-label">Orchard at NU5</span>
-            <strong id="snapshot-nu5">-</strong>
-            <small id="snapshot-nu5-detail" class="value-detail">-</small>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-step">June 2026 Patch</span>
-            <span class="timeline-label">Orchard at Patch</span>
-            <strong id="snapshot-patch">-</strong>
-            <small id="snapshot-patch-detail" class="value-detail">-</small>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-step">Today</span>
-            <span class="timeline-label">Orchard Today</span>
-            <strong id="snapshot-now">-</strong>
-            <small id="snapshot-now-detail" class="value-detail">-</small>
-          </div>
-        </div>
-      </section>
-
-      <section class="panel why-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Why These Metrics Matter</p>
-            <h2>Public Evidence Over Time</h2>
-          </div>
-        </div>
-        <ul class="plain-list">
-          <li>Public supply accounting remains balanced.</li>
-          <li>Orchard balances remain publicly observable after the patch.</li>
-          <li>No public value-pool inflation signal has appeared.</li>
-          <li>Post-patch fund movement can be tracked over time.</li>
-        </ul>
-      </section>
-
-      <section class="panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Historical Charts</p>
-            <h2>Historical Pool Share</h2>
-          </div>
-          <div class="chart-meta">
-            <span id="share-history-count">- points</span>
-            <span id="share-history-range">-</span>
-          </div>
-        </div>
-        <div class="chart-wrap">
-          <svg id="share-chart" role="img" aria-labelledby="share-chart-title share-chart-desc"></svg>
-          <h3 id="share-chart-title" class="sr-only">Historical pool share chart</h3>
-          <p id="share-chart-desc" class="sr-only">Line chart showing Orchard, Sapling, and Transparent percentages over time.</p>
-        </div>
-      </section>
-
-      <section class="panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Historical Charts</p>
-            <h2>Historical Orchard Balance</h2>
-          </div>
-          <div class="chart-meta">
-            <span id="history-count">- points</span>
-            <span id="history-range">-</span>
-          </div>
-        </div>
-        <div class="chart-wrap">
-          <svg id="orchard-chart" role="img" aria-labelledby="chart-title chart-desc"></svg>
-          <h3 id="chart-title" class="sr-only">Historical Orchard balance chart</h3>
-          <p id="chart-desc" class="sr-only">Line chart showing Orchard pool balance over time.</p>
-        </div>
-      </section>
-
-      <section class="panel methodology-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Source / Methodology</p>
-            <h2>Data Source and Method</h2>
-          </div>
-        </div>
-        <div class="method-grid">
-          <div>
-            <h3>Data source</h3>
-            <p>ZcashInfo API primary.</p>
-          </div>
-          <div>
-            <h3>Method</h3>
-            <p>Current value pools are read from public Zcash value-pool accounting. Patch balance is read from block 3,363,426. All values are converted from zatoshis to ZEC.</p>
-          </div>
-          <div>
-            <h3>Update model</h3>
-            <p>The static dataset is refreshed by the update script and served directly by GitHub Pages.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="panel limitations-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Limitations</p>
-            <h2>Scope of Public Data</h2>
-          </div>
-        </div>
-        <p class="section-note">This dashboard tracks public value-pool accounting and post-patch movement.</p>
-        <p class="section-note">Private Orchard notes are not publicly visible and cannot be independently audited through value-pool balances alone.</p>
-      </section>
-
-      <section class="panel details-panel">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Source</p>
-            <h2>Dataset</h2>
-          </div>
-        </div>
-        <dl>
-          <div>
-            <dt>Primary API</dt>
-            <dd><a href="https://api.zcashinfo.com/docs">ZcashInfo API</a></dd>
-          </div>
-          <div>
-            <dt>Tip Height</dt>
-            <dd id="tip-height">-</dd>
-          </div>
-          <div>
-            <dt>Generated At</dt>
-            <dd id="generated-at">-</dd>
-          </div>
-        </dl>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div>
-        <span>Data Source</span>
-        <strong><a href="https://api.zcashinfo.com/docs">ZcashInfo API</a></strong>
+    <section id="protocol-evolution" class="section shell evolution">
+      <div class="section-head reveal"><div><p class="kicker">Protocol evolution</p><h2>Three generations of shielded ZEC</h2></div><p>The sequence shows protocol history, not a traceable path followed by individual funds.</p></div>
+      <div class="protocol-map reveal">
+        <article class="pool sapling"><div class="pool-orb">S</div><p>2018 · Legacy</p><h3>Sapling</h3><strong id="sapling-balance">—</strong><span id="sapling-share">— of shielded</span><div class="mini-line"><svg id="sapling-spark" viewBox="0 0 240 56"></svg></div><dl><div><dt>24h net</dt><dd id="sapling-day">—</dd></div><div><dt>7d net</dt><dd id="sapling-week">—</dd></div><div><dt>Since NU6.3</dt><dd id="sapling-since">—</dd></div></dl></article>
+        <div class="flow-link" aria-hidden="true"><i></i><i></i><i></i><span>protocol<br>evolution</span></div>
+        <article class="pool orchard"><div class="pool-orb">O</div><p>2022 · Current</p><h3>Orchard</h3><strong id="orchard-balance">—</strong><span id="orchard-share">— of shielded</span><div class="mini-line"><svg id="orchard-spark" viewBox="0 0 240 56"></svg></div><dl><div><dt>24h net</dt><dd id="orchard-day">—</dd></div><div><dt>7d net</dt><dd id="orchard-week">—</dd></div><div><dt>Since NU6.3</dt><dd id="orchard-since">—</dd></div></dl></article>
+        <div class="flow-link bright" aria-hidden="true"><i></i><i></i><i></i><span>next<br>upgrade</span></div>
+        <article class="pool ironwood"><div class="pool-orb">I</div><p>2026 · Next</p><h3>Ironwood</h3><strong id="ironwood-map-balance">—</strong><span id="ironwood-map-status">Pending activation</span><div class="mini-line empty"><span>History begins at block 3,428,143</span></div><dl><div><dt>Data state</dt><dd id="ironwood-data-state">Pending</dd></div><div><dt>24h net</dt><dd id="ironwood-net">—</dd></div><div><dt>Since NU6.3</dt><dd id="ironwood-since">—</dd></div></dl></article>
       </div>
-      <div>
-        <span>Refresh Schedule</span>
-        <strong>Hourly via GitHub Actions</strong>
-      </div>
-      <div>
-        <span>Last Updated</span>
-        <strong id="footer-updated-at">-</strong>
-      </div>
-      <div>
-        <span>Repository</span>
-        <strong><a href="https://github.com/Happydao/Orchard-Integrity-Monitor">GitHub</a></strong>
-      </div>
-    </footer>
+    </section>
 
-    <script src="app.js"></script>
-  </body>
+    <section id="supply-integrity" class="section shell supply-integrity">
+      <div class="section-head reveal"><div><p class="kicker">Why Ironwood exists</p><h2>Circulating Supply Integrity</h2></div><p>Public accounting verifies where issued ZEC is held. Ironwood’s consensus rules restore a verifiable upper bound on the ZEC that can circulate.</p></div>
+      <div class="integrity-console reveal">
+        <div class="integrity-equation">
+          <div class="equation-components">
+            <div><span>Transparent</span><b id="eq-transparent">—</b></div><i>+</i>
+            <div><span>Sapling</span><b id="eq-sapling">—</b></div><i>+</i>
+            <div><span>Orchard</span><b id="eq-orchard">—</b></div><i>+</i>
+            <div class="eq-ironwood"><span>Ironwood</span><b id="eq-ironwood">—</b></div><i>+</i>
+            <div><span>Sprout + Lockbox</span><b id="eq-legacy">—</b></div>
+          </div>
+          <div class="equation-result"><span>Accounted value</span><strong id="accounted-supply">—</strong><i>=</i><div><span>Emitted supply</span><strong id="emitted-supply">—</strong></div></div>
+        </div>
+        <aside class="assurance-panel">
+          <div class="assurance-head"><span id="assurance-light"></span><div><small>Current verification state</small><strong id="assurance-state">Checking accounting</strong></div></div>
+          <dl>
+            <div><dt>Accounting difference</dt><dd id="integrity-difference">—</dd></div>
+            <div><dt>Turnstile enforcement</dt><dd id="turnstile-state">Pending NU6.3</dd></div>
+            <div><dt>Public accounting signal</dt><dd>No discrepancy observed</dd></div>
+          </dl>
+          <p id="assurance-message">Public value-pool accounting currently matches the emitted ZEC supply.</p>
+        </aside>
+      </div>
+      <div class="integrity-disclosure reveal"><span>What this verifies</span><p id="integrity-proof-copy">All public value pools currently add up to the emitted ZEC supply. After NU6.3, Ironwood’s turnstile rules will prevent excess value from leaving Orchard and entering circulation.</p><a href="https://tachyon.z.cash/blog/detecting-counterfeiting-in-zcash/">Ironwood methodology ↗</a></div>
+    </section>
+
+    <section id="activity" class="section shell">
+      <div class="section-head reveal"><div><p class="kicker">Observable movement</p><h2>Pool activity, not attribution</h2></div><p>Changes below are net balance differences. Public pool accounting cannot prove gross inflow, gross outflow, or the destination of an Orchard exit.</p></div>
+      <div class="activity-grid reveal">
+        <article class="chart-panel"><div class="chart-head"><div><span>Value-pool balances</span><h3>Shielded &amp; transparent history</h3></div><div class="range-tabs"><button class="active" data-range="all">ALL</button><button data-range="365">1Y</button><button data-range="30">30D</button><button data-range="7">7D</button><button data-range="1">24H</button></div></div><div class="legend"><span class="l-transparent">Transparent</span><span class="l-sapling">Sapling</span><span class="l-orchard">Orchard</span><span class="l-ironwood">Ironwood</span></div><div class="interactive-chart"><svg id="history-chart" viewBox="0 0 900 360" role="img" aria-label="Historical balances of Transparent, Sapling, Orchard, and Ironwood value pools"></svg></div></article>
+        <aside class="activity-feed range-lens"><div class="lens-heading"><p class="kicker">Selected range</p><h3>Range lens</h3></div><div class="lens-summary"><div class="range-window"><strong id="lens-dates">—</strong><span id="lens-blocks">—</span></div><div class="lens-net"><span>Net shielded change</span><strong id="lens-net-shielded">—</strong><small id="lens-period-label">Across the selected range</small></div><div class="lens-primary"><span>Shielded share at range end</span><strong id="lens-shielded-share">—</strong><b id="lens-share-change">— percentage points</b></div><div class="lens-composition"><span>Composition at range end</span><div id="lens-pools"></div></div></div><p class="feed-note">Net pool movement is observable. Routes between pools are not inferred.</p></aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="shell"><div class="brand"><span class="brand-mark"><img src="assets/zcash-brandmark-yellow.svg" alt=""></span><span>Shielded<br><b>Observatory</b></span></div><p>Evolved from the <a href="https://github.com/Happydao/Orchard-Integrity-Monitor">Orchard Integrity Monitor</a>. Built by <a href="https://happydev.fi">Happy</a> (<a href="https://torrino.space">Torrino DAO community</a>).</p><div><span>Tip <b id="footer-tip">—</b></span><span>Dataset <b id="footer-time">—</b></span></div></footer>
+  <script src="app.js"></script>
+</body>
 </html>

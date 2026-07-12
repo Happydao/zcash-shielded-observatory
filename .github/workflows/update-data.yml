@@ -33,16 +33,24 @@ jobs:
 
       - name: Update dataset
         run: python scripts/update.py
+        env:
+          ZEBRA_RPC_URL: ${{ secrets.ZEBRA_RPC_URL }}
+          ZEBRA_RPC_USER: ${{ secrets.ZEBRA_RPC_USER }}
+          ZEBRA_RPC_PASSWORD: ${{ secrets.ZEBRA_RPC_PASSWORD }}
+
+      - name: Run collector tests
+        run: python -m unittest discover -s tests -v
 
       - name: Commit updated dataset
         run: |
-          if git diff --quiet -- data/data.json; then
-            echo "data/data.json unchanged; skipping commit."
+          if git diff --quiet -- data/data.json data/ironwood-history.json; then
+            echo "Dataset unchanged; skipping commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/data.json
+          if [ -f data/ironwood-history.json ]; then git add data/ironwood-history.json; fi
           git commit -m "Update Zcash dataset"
           git push
