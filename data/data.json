@@ -1,28 +1,28 @@
 {
   "activation": {
-    "blocks_remaining": 11601,
-    "current_height": 3416542,
+    "blocks_remaining": 11474,
+    "current_height": 3416669,
     "estimated_at": "2026-07-28T12:00:00Z",
     "height": 3428143,
-    "progress_bps": 996616,
+    "progress_bps": 996653,
     "reached": false
   },
-  "generated_at": "2026-07-18T11:17:41.619450+00:00",
+  "generated_at": "2026-07-18T13:46:32.194012+00:00",
   "health": {
     "chain_status": "synced",
-    "last_chain_timestamp": 1784373442,
+    "last_chain_timestamp": 1784382301,
     "status": "ok",
-    "tip_hash": "00000000005508dd30da530f6931a9976a4225f1b86b72ae06bd0b7d01578ea2"
+    "tip_hash": "00000000002e489d12d2cc579156b799bf5c2c500f0db6296f52282b0f9ec773"
   },
   "history": [
     {
-      "height": 8460,
+      "height": 8475,
       "lockbox": 0,
       "orchard": 0,
       "sapling": 0,
       "sprout": 0,
-      "timestamp": 1478866431,
-      "transparent": 2237405687500
+      "timestamp": 1478868313,
+      "transparent": 2245345375000
     },
     {
       "height": 16630,
@@ -232,13 +232,13 @@
       "transparent": 232111875000000
     },
     {
-      "height": 203708,
+      "height": 203862,
       "lockbox": 0,
       "orchard": 0,
       "sapling": 0,
       "sprout": 0,
-      "timestamp": 1508289911,
-      "transparent": 242136875000000
+      "timestamp": 1508315004,
+      "transparent": 242329375000000
     },
     {
       "height": 211968,
@@ -331,13 +331,13 @@
       "transparent": 343838125000000
     },
     {
-      "height": 293235,
+      "height": 293364,
       "lockbox": 0,
       "orchard": 0,
       "sapling": 0,
       "sprout": 0,
-      "timestamp": 1521792229,
-      "transparent": 354045625000000
+      "timestamp": 1521811915,
+      "transparent": 354206875000000
     },
     {
       "height": 301431,
@@ -493,13 +493,13 @@
       "transparent": 524471685712250
     },
     {
-      "height": 439496,
+      "height": 439898,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 3010613646267,
+      "sapling": 3010941515506,
       "sprout": 0,
-      "timestamp": 1543837127,
-      "transparent": 533861261353733
+      "timestamp": 1543897142,
+      "transparent": 534363433484494
     },
     {
       "height": 447889,
@@ -511,13 +511,13 @@
       "transparent": 544450541250817
     },
     {
-      "height": 456030,
+      "height": 456183,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 4124332925433,
+      "sapling": 4100664953780,
       "sprout": 0,
-      "timestamp": 1546327557,
-      "transparent": 553415042074567
+      "timestamp": 1546350564,
+      "transparent": 553629960046220
     },
     {
       "height": 464304,
@@ -538,13 +538,13 @@
       "transparent": 571706973534732
     },
     {
-      "height": 480528,
+      "height": 480607,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 9895669957604,
+      "sapling": 10527426815721,
       "sprout": 0,
-      "timestamp": 1550021004,
-      "transparent": 578266205042396
+      "timestamp": 1550032169,
+      "transparent": 577733198184279
     },
     {
       "height": 488696,
@@ -565,13 +565,13 @@
       "transparent": 596296523776465
     },
     {
-      "height": 504642,
+      "height": 505011,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 12344902450109,
+      "sapling": 12354723541392,
       "sprout": 0,
-      "timestamp": 1553656437,
-      "transparent": 605959472549891
+      "timestamp": 1553711277,
+      "transparent": 606410901458608
     },
     {
       "height": 512997,
@@ -646,13 +646,13 @@
       "transparent": 678351644862872
     },
     {
-      "height": 578242,
+      "height": 578298,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 21418678048708,
+      "sapling": 21451698166521,
       "sprout": 0,
-      "timestamp": 1564744934,
-      "transparent": 688885696951292
+      "timestamp": 1564754439,
+      "transparent": 688922676833479
     },
     {
       "height": 586430,
@@ -682,13 +682,13 @@
       "transparent": 720467746632699
     },
     {
-      "height": 610812,
+      "height": 610870,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 21354110223872,
+      "sapling": 21349945514515,
       "sprout": 0,
-      "timestamp": 1569652550,
-      "transparent": 729662764776128
+      "timestamp": 1569661687,
+      "transparent": 729739429485485
     },
     {
       "height": 618762,
@@ -700,13 +700,13 @@
       "transparent": 738406885394531
     },
     {
-      "height": 626990,
+      "height": 627150,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 22620157590107,
+      "sapling": 22630940145653,
       "sprout": 0,
-      "timestamp": 1572091802,
-      "transparent": 748619217409893
+      "timestamp": 1572115804,
+      "transparent": 748808434854347
     },
     {
       "height": 635266,
@@ -790,13 +790,13 @@
       "transparent": 836636774067626
     },
     {
-      "height": 763487,
+      "height": 763504,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 26132090907596,
+      "sapling": 26143724070172,
       "sprout": 0,
-      "timestamp": 1584382988,
-      "transparent": 847048534092404
+      "timestamp": 1584384393,
+      "transparent": 847047525929828
     },
     {
       "height": 779700,
@@ -844,13 +844,13 @@
       "transparent": 891174251163863
     },
     {
-      "height": 861120,
+      "height": 861228,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 33988091707887,
+      "sapling": 34019707102487,
       "sprout": 0,
-      "timestamp": 1591739939,
-      "transparent": 900213158292113
+      "timestamp": 1591748087,
+      "transparent": 900249042897513
     },
     {
       "height": 877398,
@@ -916,13 +916,13 @@
       "transparent": 958590621223202
     },
     {
-      "height": 991368,
+      "height": 991443,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 45113052127123,
+      "sapling": 45093021740447,
       "sprout": 0,
-      "timestamp": 1601555965,
-      "transparent": 970493197872877
+      "timestamp": 1601562163,
+      "transparent": 970560103259553
     },
     {
       "height": 1007613,
@@ -934,13 +934,13 @@
       "transparent": 977147575881729
     },
     {
-      "height": 1023780,
+      "height": 1024029,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 50143925287198,
+      "sapling": 49171954376288,
       "sprout": 0,
-      "timestamp": 1603999017,
-      "transparent": 985719824712802
+      "timestamp": 1604017597,
+      "transparent": 986847420623712
     },
     {
       "height": 1040262,
@@ -970,13 +970,13 @@
       "transparent": 996885092044631
     },
     {
-      "height": 1089066,
+      "height": 1089116,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 61854524646302,
+      "sapling": 61947797354617,
       "sprout": 0,
-      "timestamp": 1608920552,
-      "transparent": 1001479537853698
+      "timestamp": 1608924250,
+      "transparent": 1001401890145383
     },
     {
       "height": 1105260,
@@ -1015,13 +1015,13 @@
       "transparent": 1024018871612198
     },
     {
-      "height": 1170263,
+      "height": 1170477,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 58330346953044,
+      "sapling": 58383605733449,
       "sprout": 0,
-      "timestamp": 1615043493,
-      "transparent": 1030377778046956
+      "timestamp": 1615059518,
+      "transparent": 1030391394266551
     },
     {
       "height": 1186500,
@@ -1033,13 +1033,13 @@
       "transparent": 1034688462068368
     },
     {
-      "height": 1202568,
+      "height": 1203012,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 59623312211842,
+      "sapling": 59141386267979,
       "sprout": 0,
-      "timestamp": 1617479464,
-      "transparent": 1039180125288158
+      "timestamp": 1617513806,
+      "transparent": 1039800801232021
     },
     {
       "height": 1219040,
@@ -1069,13 +1069,13 @@
       "transparent": 1061115936306445
     },
     {
-      "height": 1267968,
+      "height": 1268081,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 57349974760228,
+      "sapling": 57357717570386,
       "sprout": 0,
-      "timestamp": 1622412983,
-      "transparent": 1061890962739772
+      "timestamp": 1622420584,
+      "transparent": 1061918532429614
     },
     {
       "height": 1284228,
@@ -1096,22 +1096,22 @@
       "transparent": 1063278269711210
     },
     {
-      "height": 1316766,
+      "height": 1316884,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 65619185981011,
+      "sapling": 65542966857902,
       "sprout": 0,
-      "timestamp": 1626093800,
-      "transparent": 1068871126518989
+      "timestamp": 1626101982,
+      "transparent": 1068984220642098
     },
     {
-      "height": 1333080,
+      "height": 1333167,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 66540129408653,
+      "sapling": 66632752721362,
       "sprout": 0,
-      "timestamp": 1627323712,
-      "transparent": 1073048308091347
+      "timestamp": 1627330667,
+      "transparent": 1072982872278638
     },
     {
       "height": 1349220,
@@ -1123,22 +1123,22 @@
       "transparent": 1075121542413561
     },
     {
-      "height": 1365600,
+      "height": 1365660,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 82466233464887,
+      "sapling": 82465551025481,
       "sprout": 0,
-      "timestamp": 1629776516,
-      "transparent": 1067284704035113
+      "timestamp": 1629780612,
+      "transparent": 1067304136474519
     },
     {
-      "height": 1381917,
+      "height": 1381953,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 84370400012197,
+      "sapling": 84426417809930,
       "sprout": 0,
-      "timestamp": 1631007326,
-      "transparent": 1070479599987803
+      "timestamp": 1631010419,
+      "transparent": 1070434832190070
     },
     {
       "height": 1398163,
@@ -1186,22 +1186,22 @@
       "transparent": 1095289136630845
     },
     {
-      "height": 1479296,
+      "height": 1479564,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 78174960191621,
+      "sapling": 78202850799115,
       "sprout": 0,
-      "timestamp": 1638352815,
-      "transparent": 1107105977308379
+      "timestamp": 1638372331,
+      "transparent": 1107161836700885
     },
     {
-      "height": 1495730,
+      "height": 1495806,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 81404340521122,
+      "sapling": 81479190473406,
       "sprout": 0,
-      "timestamp": 1639591295,
-      "transparent": 1109012221978878
+      "timestamp": 1639596562,
+      "transparent": 1108961122026594
     },
     {
       "height": 1511969,
@@ -1222,13 +1222,13 @@
       "transparent": 1120740203548289
     },
     {
-      "height": 1544376,
+      "height": 1544680,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 68983428184053,
+      "sapling": 69292525592457,
       "sprout": 0,
-      "timestamp": 1643259333,
-      "transparent": 1136635009315947
+      "timestamp": 1643280772,
+      "transparent": 1136420911907543
     },
     {
       "height": 1560714,
@@ -1258,22 +1258,22 @@
       "transparent": 1152221573755418
     },
     {
-      "height": 1609701,
+      "height": 1609784,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 67737539108624,
+      "sapling": 67724520777630,
       "sprout": 0,
-      "timestamp": 1648182437,
-      "transparent": 1158294960891376
+      "timestamp": 1648188887,
+      "transparent": 1158333916722370
     },
     {
-      "height": 1625914,
+      "height": 1626012,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 71555984907739,
+      "sapling": 71550356241602,
       "sprout": 0,
-      "timestamp": 1649405113,
-      "transparent": 1159543077592261
+      "timestamp": 1649412367,
+      "transparent": 1159579331258398
     },
     {
       "height": 1642164,
@@ -1285,13 +1285,13 @@
       "transparent": 1160257171845008
     },
     {
-      "height": 1658160,
+      "height": 1658598,
       "lockbox": 0,
       "orchard": 0,
-      "sapling": 76417756594085,
+      "sapling": 76349083029491,
       "sprout": 0,
-      "timestamp": 1651836279,
-      "transparent": 1164758180905915
+      "timestamp": 1651869402,
+      "transparent": 1164963729470509
     },
     {
       "height": 1674790,
@@ -1321,31 +1321,31 @@
       "transparent": 1174839928359372
     },
     {
-      "height": 1723436,
+      "height": 1723678,
       "lockbox": 0,
       "orchard": 952121127107,
-      "sapling": 79826523302419,
+      "sapling": 79764350638637,
       "sprout": 0,
-      "timestamp": 1656759130,
-      "transparent": 1180796043070474
+      "timestamp": 1656777523,
+      "transparent": 1180933840734256
     },
     {
-      "height": 1739695,
+      "height": 1739952,
       "lockbox": 0,
       "orchard": 971473415969,
-      "sapling": 79884030882142,
+      "sapling": 79895320362043,
       "sprout": 0,
-      "timestamp": 1657985053,
-      "transparent": 1185800120701889
+      "timestamp": 1658004197,
+      "transparent": 1185869143721988
     },
     {
-      "height": 1756128,
+      "height": 1756234,
       "lockbox": 0,
       "orchard": 984667767281,
-      "sapling": 78921757585553,
+      "sapling": 78911311406405,
       "sprout": 0,
-      "timestamp": 1659224461,
-      "transparent": 1191884512147166
+      "timestamp": 1659231791,
+      "transparent": 1191928083326314
     },
     {
       "height": 1772021,
@@ -1366,13 +1366,13 @@
       "transparent": 1200202205240178
     },
     {
-      "height": 1804925,
+      "height": 1805040,
       "lockbox": 0,
-      "orchard": 1127178626073,
-      "sapling": 83244319694483,
+      "orchard": 1127188471480,
+      "sapling": 83183911302605,
       "sprout": 0,
-      "timestamp": 1662901223,
-      "transparent": 1202668501679444
+      "timestamp": 1662909761,
+      "transparent": 1202764837725915
     },
     {
       "height": 1821053,
@@ -1384,13 +1384,13 @@
       "transparent": 1205721975348435
     },
     {
-      "height": 1837563,
+      "height": 1837632,
       "lockbox": 0,
-      "orchard": 1447426983405,
-      "sapling": 86709001453855,
+      "orchard": 1447426949405,
+      "sapling": 86674100476715,
       "sprout": 0,
-      "timestamp": 1665360818,
-      "transparent": 1209082946562740
+      "timestamp": 1665366666,
+      "transparent": 1209139410073880
     },
     {
       "height": 1853802,
@@ -1411,22 +1411,22 @@
       "transparent": 1217411347142563
     },
     {
-      "height": 1886235,
+      "height": 1886456,
       "lockbox": 0,
-      "orchard": 1819907057402,
-      "sapling": 92969601757518,
+      "orchard": 1819906951902,
+      "sapling": 92848432037185,
       "sprout": 0,
-      "timestamp": 1669027875,
-      "transparent": 1217659866185080
+      "timestamp": 1669045447,
+      "transparent": 1217850098510913
     },
     {
-      "height": 1902472,
+      "height": 1902744,
       "lockbox": 0,
-      "orchard": 2047938416766,
-      "sapling": 92571148423498,
+      "orchard": 2054345385228,
+      "sapling": 92958204107292,
       "sprout": 0,
-      "timestamp": 1670251486,
-      "transparent": 1222904350659736
+      "timestamp": 1670272907,
+      "transparent": 1222595888007480
     },
     {
       "height": 1918740,
@@ -1474,22 +1474,22 @@
       "transparent": 1240179271777562
     },
     {
-      "height": 2000237,
+      "height": 2000400,
       "lockbox": 0,
-      "orchard": 3945104554536,
-      "sapling": 98290330798372,
+      "orchard": 3983396071158,
+      "sapling": 98315601316215,
       "sprout": 0,
-      "timestamp": 1677620369,
-      "transparent": 1245839564647092
+      "timestamp": 1677632942,
+      "transparent": 1245826940112627
     },
     {
-      "height": 2016479,
+      "height": 2016666,
       "lockbox": 0,
-      "orchard": 4669074036597,
-      "sapling": 100861229377096,
+      "orchard": 4591117668207,
+      "sapling": 100969261472551,
       "sprout": 0,
-      "timestamp": 1678845751,
-      "transparent": 1247620321586307
+      "timestamp": 1678859557,
+      "transparent": 1247648683359242
     },
     {
       "height": 2032381,
@@ -1501,13 +1501,13 @@
       "transparent": 1251846798701233
     },
     {
-      "height": 2049012,
+      "height": 2049255,
       "lockbox": 0,
-      "orchard": 5699333353606,
-      "sapling": 106981482320042,
+      "orchard": 5745180106244,
+      "sapling": 107995678571639,
       "sprout": 0,
-      "timestamp": 1681297174,
-      "transparent": 1250636371826352
+      "timestamp": 1681315809,
+      "transparent": 1249652266322117
     },
     {
       "height": 2065470,
@@ -1528,13 +1528,13 @@
       "transparent": 1244463962689380
     },
     {
-      "height": 2097903,
+      "height": 2098096,
       "lockbox": 0,
-      "orchard": 8028796889127,
-      "sapling": 117564072328509,
+      "orchard": 8068630538126,
+      "sapling": 117530195500177,
       "sprout": 0,
-      "timestamp": 1684984016,
-      "transparent": 1253002755782364
+      "timestamp": 1684998066,
+      "transparent": 1253057111461697
     },
     {
       "height": 2114244,
@@ -1546,13 +1546,13 @@
       "transparent": 1257558749040678
     },
     {
-      "height": 2130525,
+      "height": 2130651,
       "lockbox": 0,
-      "orchard": 8822527093903,
-      "sapling": 122773429782875,
+      "orchard": 8829042840516,
+      "sapling": 122590236123030,
       "sprout": 0,
-      "timestamp": 1687442269,
-      "transparent": 1257194043123222
+      "timestamp": 1687451870,
+      "transparent": 1257410096036454
     },
     {
       "height": 2146719,
@@ -1564,13 +1564,13 @@
       "transparent": 1266441194165418
     },
     {
-      "height": 2162820,
+      "height": 2163200,
       "lockbox": 0,
-      "orchard": 8958281877405,
-      "sapling": 118189439283102,
+      "orchard": 8962201472324,
+      "sapling": 118228321209429,
       "sprout": 0,
-      "timestamp": 1689877327,
-      "transparent": 1271734466339493
+      "timestamp": 1689905653,
+      "transparent": 1271810414818247
     },
     {
       "height": 2179342,
@@ -1582,22 +1582,22 @@
       "transparent": 1279572157468380
     },
     {
-      "height": 2195439,
+      "height": 2195700,
       "lockbox": 0,
-      "orchard": 9647882366690,
-      "sapling": 116733166483609,
+      "orchard": 9655762558015,
+      "sapling": 116861929779300,
       "sprout": 0,
-      "timestamp": 1692336210,
-      "transparent": 1282694576149701
+      "timestamp": 1692355228,
+      "transparent": 1282639495162685
     },
     {
-      "height": 2211790,
+      "height": 2211975,
       "lockbox": 0,
-      "orchard": 11393984224937,
-      "sapling": 114775557677961,
+      "orchard": 11402410261594,
+      "sapling": 114486575386284,
       "sprout": 0,
-      "timestamp": 1693569428,
-      "transparent": 1288015770597102
+      "timestamp": 1693583064,
+      "transparent": 1288354139352122
     },
     {
       "height": 2228033,
@@ -1609,22 +1609,22 @@
       "transparent": 1291519181536593
     },
     {
-      "height": 2244320,
+      "height": 2244554,
       "lockbox": 0,
-      "orchard": 15511868117622,
-      "sapling": 115013217243728,
+      "orchard": 15511343491533,
+      "sapling": 115438714479820,
       "sprout": 0,
-      "timestamp": 1696021738,
-      "transparent": 1293825852138650
+      "timestamp": 1696039453,
+      "transparent": 1293474004528647
     },
     {
-      "height": 2260512,
+      "height": 2260779,
       "lockbox": 0,
-      "orchard": 15691943808105,
-      "sapling": 114029724944028,
+      "orchard": 15688087564081,
+      "sapling": 114092585425197,
       "sprout": 0,
-      "timestamp": 1697242919,
-      "transparent": 1299689268747867
+      "timestamp": 1697262863,
+      "transparent": 1299713702010722
     },
     {
       "height": 2277000,
@@ -1636,13 +1636,13 @@
       "transparent": 1304246366767365
     },
     {
-      "height": 2293277,
+      "height": 2293335,
       "lockbox": 0,
-      "orchard": 15941627751628,
-      "sapling": 110022051092638,
+      "orchard": 15941596543544,
+      "sapling": 109935521254751,
       "sprout": 0,
-      "timestamp": 1699713127,
-      "transparent": 1313686321155734
+      "timestamp": 1699717273,
+      "transparent": 1313791007201705
     },
     {
       "height": 2309580,
@@ -1663,13 +1663,13 @@
       "transparent": 1324589904543844
     },
     {
-      "height": 2342004,
+      "height": 2342205,
       "lockbox": 0,
-      "orchard": 16437457593083,
-      "sapling": 109766669559445,
+      "orchard": 16437998100510,
+      "sapling": 109650030826438,
       "sprout": 0,
-      "timestamp": 1703386611,
-      "transparent": 1328673060347472
+      "timestamp": 1703401905,
+      "transparent": 1328851971073052
     },
     {
       "height": 2358144,
@@ -1681,22 +1681,22 @@
       "transparent": 1334647324211056
     },
     {
-      "height": 2374695,
+      "height": 2374764,
       "lockbox": 0,
-      "orchard": 13329992283576,
-      "sapling": 109230555145595,
+      "orchard": 13319863609211,
+      "sapling": 109162759734314,
       "sprout": 0,
-      "timestamp": 1705849653,
-      "transparent": 1342532577570829
+      "timestamp": 1705855123,
+      "transparent": 1342632064156475
     },
     {
-      "height": 2390896,
+      "height": 2391012,
       "lockbox": 0,
-      "orchard": 13831357712702,
-      "sapling": 109969908451296,
+      "orchard": 13870513875548,
+      "sapling": 109987084350437,
       "sprout": 0,
-      "timestamp": 1707071005,
-      "transparent": 1346354671336002
+      "timestamp": 1707079581,
+      "transparent": 1346334589274015
     },
     {
       "height": 2407158,
@@ -1717,13 +1717,13 @@
       "transparent": 1363335316351313
     },
     {
-      "height": 2439660,
+      "height": 2439864,
       "lockbox": 0,
-      "orchard": 15981044217883,
-      "sapling": 101355015761922,
+      "orchard": 15737366033534,
+      "sapling": 101733385432916,
       "sprout": 0,
-      "timestamp": 1710747554,
-      "transparent": 1368058627520195
+      "timestamp": 1710763306,
+      "transparent": 1367987686033550
     },
     {
       "height": 2456055,
@@ -1735,13 +1735,13 @@
       "transparent": 1361480520999553
     },
     {
-      "height": 2472161,
+      "height": 2472408,
       "lockbox": 0,
-      "orchard": 19324044738857,
-      "sapling": 105330420223484,
+      "orchard": 19316236978516,
+      "sapling": 105079459656517,
       "sprout": 0,
-      "timestamp": 1713196442,
-      "transparent": 1370896785037659
+      "timestamp": 1713216502,
+      "transparent": 1371232740864967
     },
     {
       "height": 2488536,
@@ -1762,76 +1762,76 @@
       "transparent": 1380478907777970
     },
     {
-      "height": 2521108,
+      "height": 2521239,
       "lockbox": 0,
-      "orchard": 33035939490027,
-      "sapling": 106657140602361,
+      "orchard": 33112501427151,
+      "sapling": 106446283625996,
       "sprout": 0,
-      "timestamp": 1716887384,
-      "transparent": 1371154107407612
+      "timestamp": 1716898067,
+      "transparent": 1371329339946853
     },
     {
-      "height": 2537430,
+      "height": 2537470,
       "lockbox": 0,
-      "orchard": 37486751545681,
-      "sapling": 107390745373418,
+      "orchard": 37487193528501,
+      "sapling": 107382546161616,
       "sprout": 0,
-      "timestamp": 1718117801,
-      "transparent": 1371070315580901
+      "timestamp": 1718121067,
+      "transparent": 1371090572809883
     },
     {
-      "height": 2553672,
+      "height": 2553768,
       "lockbox": 0,
-      "orchard": 39302332343608,
-      "sapling": 105693365889201,
+      "orchard": 39302321742890,
+      "sapling": 105693148352755,
       "sprout": 0,
-      "timestamp": 1719342942,
-      "transparent": 1376027739267191
+      "timestamp": 1719349906,
+      "transparent": 1376057967404355
     },
     {
-      "height": 2569827,
+      "height": 2569998,
       "lockbox": 0,
-      "orchard": 39712772582893,
-      "sapling": 100750152379998,
+      "orchard": 39487307496805,
+      "sapling": 100775892097327,
       "sprout": 0,
-      "timestamp": 1720560973,
-      "transparent": 1385608950037109
+      "timestamp": 1720573324,
+      "transparent": 1385862112905868
     },
     {
-      "height": 2586105,
+      "height": 2586324,
       "lockbox": 0,
-      "orchard": 71676821250212,
-      "sapling": 94184193781516,
+      "orchard": 71688611504045,
+      "sapling": 93986164239219,
       "sprout": 0,
-      "timestamp": 1721786952,
-      "transparent": 1365297734968272
+      "timestamp": 1721803242,
+      "transparent": 1365552411756736
     },
     {
-      "height": 2602450,
+      "height": 2602600,
       "lockbox": 0,
-      "orchard": 49005728982049,
-      "sapling": 100974558941016,
+      "orchard": 48908641231635,
+      "sapling": 101015882597325,
       "sprout": 0,
-      "timestamp": 1723019071,
-      "transparent": 1386286274576935
+      "timestamp": 1723029464,
+      "transparent": 1386388913671040
     },
     {
-      "height": 2618775,
+      "height": 2618857,
       "lockbox": 0,
-      "orchard": 47939922991905,
-      "sapling": 94538774041968,
+      "orchard": 47637424675549,
+      "sapling": 94537080593049,
       "sprout": 0,
-      "timestamp": 1724249118,
-      "transparent": 1398889427966127
+      "timestamp": 1724255089,
+      "transparent": 1399219244731402
     },
     {
-      "height": 2634996,
+      "height": 2635167,
       "lockbox": 0,
-      "orchard": 48833486960305,
-      "sapling": 95930751467807,
+      "orchard": 48850830979320,
+      "sapling": 96200742514065,
       "sprout": 0,
-      "timestamp": 1725472154,
-      "transparent": 1401672949071888
+      "timestamp": 1725485942,
+      "transparent": 1401439051506615
     },
     {
       "height": 2651364,
@@ -1879,13 +1879,13 @@
       "transparent": 1400785546685295
     },
     {
-      "height": 2732730,
-      "lockbox": 118706250000,
-      "orchard": 70765342984764,
-      "sapling": 103511854826621,
+      "height": 2732802,
+      "lockbox": 120056250000,
+      "orchard": 70765382835088,
+      "sapling": 103511846817355,
       "sprout": 0,
-      "timestamp": 1732837743,
-      "transparent": 1401593939688615
+      "timestamp": 1732843072,
+      "transparent": 1401603807847557
     },
     {
       "height": 2748960,
@@ -1897,22 +1897,22 @@
       "transparent": 1404463339904528
     },
     {
-      "height": 2765313,
-      "lockbox": 729637500000,
-      "orchard": 92214837643347,
-      "sapling": 100674994804037,
+      "height": 2765425,
+      "lockbox": 731737500000,
+      "orchard": 92264823577914,
+      "sapling": 100670122864114,
       "sprout": 0,
-      "timestamp": 1735294385,
-      "transparent": 1387461467552616
+      "timestamp": 1735302626,
+      "transparent": 1387431753557972
     },
     {
-      "height": 2781495,
-      "lockbox": 1033050000000,
-      "orchard": 95928895632360,
-      "sapling": 97900389036040,
+      "height": 2781648,
+      "lockbox": 1035918750000,
+      "orchard": 95971479792094,
+      "sapling": 97904035114384,
       "sprout": 0,
-      "timestamp": 1736515240,
-      "transparent": 1388747040331600
+      "timestamp": 1736525335,
+      "transparent": 1388721847593522
     },
     {
       "height": 2797773,
@@ -1960,49 +1960,49 @@
       "transparent": 1340583250860508
     },
     {
-      "height": 2879154,
-      "lockbox": 2864156250000,
-      "orchard": 189043563053252,
-      "sapling": 85690345137929,
+      "height": 2879344,
+      "lockbox": 2867718750000,
+      "orchard": 189052062274005,
+      "sapling": 85689762275769,
       "sprout": 0,
-      "timestamp": 1743873995,
-      "transparent": 1321270529308819
+      "timestamp": 1743889263,
+      "transparent": 1321288737950226
     },
     {
-      "height": 2895283,
-      "lockbox": 3166575000000,
-      "orchard": 192562868207683,
-      "sapling": 84031622609983,
+      "height": 2895644,
+      "lockbox": 3173343750000,
+      "orchard": 192580969352705,
+      "sapling": 84033903387849,
       "sprout": 0,
-      "timestamp": 1745090832,
-      "transparent": 1321627684182334
+      "timestamp": 1745117735,
+      "transparent": 1321656939759446
     },
     {
-      "height": 2911722,
-      "lockbox": 3474806250000,
-      "orchard": 193803374591134,
-      "sapling": 83824728194037,
+      "height": 2911932,
+      "lockbox": 3478743750000,
+      "orchard": 193848942165787,
+      "sapling": 83821850700778,
       "sprout": 0,
-      "timestamp": 1746330679,
-      "transparent": 1322854434714829
+      "timestamp": 1746345860,
+      "transparent": 1322840619633435
     },
     {
-      "height": 2927808,
-      "lockbox": 3776418750000,
-      "orchard": 211707893486840,
-      "sapling": 83462447341499,
+      "height": 2928176,
+      "lockbox": 3783318750000,
+      "orchard": 211917325808060,
+      "sapling": 83317577531098,
       "sprout": 0,
-      "timestamp": 1747542677,
-      "transparent": 1307524021671661
+      "timestamp": 1747569777,
+      "transparent": 1307510059160842
     },
     {
-      "height": 2944368,
-      "lockbox": 4086918750000,
-      "orchard": 226576197914696,
-      "sapling": 82889751693280,
+      "height": 2944487,
+      "lockbox": 4089150000000,
+      "orchard": 226563217450651,
+      "sapling": 82883912471020,
       "sprout": 0,
-      "timestamp": 1748789659,
-      "transparent": 1295505412892024
+      "timestamp": 1748799243,
+      "transparent": 1295540595078329
     },
     {
       "height": 2960616,
@@ -2014,22 +2014,22 @@
       "transparent": 1294376020461983
     },
     {
-      "height": 2976867,
-      "lockbox": 4696275000000,
-      "orchard": 228898027254419,
-      "sapling": 84100270656983,
+      "height": 2977008,
+      "lockbox": 4698918750000,
+      "orchard": 228896949036890,
+      "sapling": 84023839637065,
       "sprout": 0,
-      "timestamp": 1751240419,
-      "transparent": 1296441677088598
+      "timestamp": 1751250487,
+      "transparent": 1296538573826045
     },
     {
-      "height": 2993148,
-      "lockbox": 5001543750000,
-      "orchard": 229397547418775,
-      "sapling": 84083169859328,
+      "height": 2993263,
+      "lockbox": 5003700000000,
+      "orchard": 229383586900132,
+      "sapling": 84062934168046,
       "sprout": 0,
-      "timestamp": 1752467317,
-      "transparent": 1298197895221897
+      "timestamp": 1752476300,
+      "transparent": 1298247903931822
     },
     {
       "height": 3009510,
@@ -2050,49 +2050,49 @@
       "transparent": 1275787069384933
     },
     {
-      "height": 3042000,
-      "lockbox": 5917518750000,
-      "orchard": 276759646142862,
-      "sapling": 90098894483837,
+      "height": 3042072,
+      "lockbox": 5918868750000,
+      "orchard": 276753292328909,
+      "sapling": 90107087573407,
       "sprout": 0,
-      "timestamp": 1756147965,
-      "transparent": 1251537221873301
+      "timestamp": 1756154720,
+      "transparent": 1251545282597684
     },
     {
-      "height": 3058257,
-      "lockbox": 6222337500000,
-      "orchard": 292030281491367,
-      "sapling": 85200137923713,
+      "height": 3058404,
+      "lockbox": 6225093750000,
+      "orchard": 292034576518888,
+      "sapling": 85205297623891,
       "sprout": 0,
-      "timestamp": 1757373123,
-      "transparent": 1243400680584920
+      "timestamp": 1757384472,
+      "transparent": 1243411438357221
     },
     {
-      "height": 3074640,
-      "lockbox": 6529518750000,
-      "orchard": 291305576181443,
-      "sapling": 85509770870407,
+      "height": 3074730,
+      "lockbox": 6531206250000,
+      "orchard": 291320918704223,
+      "sapling": 85517656327700,
       "sprout": 0,
-      "timestamp": 1758607294,
-      "transparent": 1246068415448150
+      "timestamp": 1758613928,
+      "transparent": 1246057562468077
     },
     {
-      "height": 3090870,
-      "lockbox": 6833831250000,
-      "orchard": 298795716524442,
-      "sapling": 80160372545160,
+      "height": 3091010,
+      "lockbox": 6836456250000,
+      "orchard": 298959486427495,
+      "sapling": 80176070124813,
       "sprout": 0,
-      "timestamp": 1759830587,
-      "transparent": 1246159298430398
+      "timestamp": 1759840965,
+      "transparent": 1245999080947692
     },
     {
-      "height": 3107182,
-      "lockbox": 7139681250000,
-      "orchard": 392707110661621,
-      "sapling": 76828750072463,
+      "height": 3107298,
+      "lockbox": 7141856250000,
+      "orchard": 392934191218484,
+      "sapling": 76784273413450,
       "sprout": 0,
-      "timestamp": 1761059509,
-      "transparent": 1157822426765916
+      "timestamp": 1761067918,
+      "transparent": 1157655772868066
     },
     {
       "height": 3123432,
@@ -2104,22 +2104,22 @@
       "transparent": 1134831179844812
     },
     {
-      "height": 3139776,
-      "lockbox": 7750818750000,
-      "orchard": 414356733752768,
-      "sapling": 64847366040440,
+      "height": 3139851,
+      "lockbox": 7752225000000,
+      "orchard": 414411074526183,
+      "sapling": 64854973400408,
       "sprout": 0,
-      "timestamp": 1763514842,
-      "transparent": 1152635862706792
+      "timestamp": 1763521273,
+      "transparent": 1152584227073409
     },
     {
-      "height": 3155659,
-      "lockbox": 173625000000,
-      "orchard": 413374561123585,
-      "sapling": 64412845008037,
+      "height": 3156090,
+      "lockbox": 181706250000,
+      "orchard": 413603316637828,
+      "sapling": 64424653891000,
       "sprout": 0,
-      "timestamp": 1764711722,
-      "transparent": 1164111468868378
+      "timestamp": 1764745043,
+      "transparent": 1163930166971172
     },
     {
       "height": 3172301,
@@ -2131,40 +2131,40 @@
       "transparent": 1166176460840318
     },
     {
-      "height": 3188421,
-      "lockbox": 787912500000,
-      "orchard": 441196608938231,
-      "sapling": 62735798090355,
+      "height": 3188676,
+      "lockbox": 792693750000,
+      "orchard": 441193149040633,
+      "sapling": 62755194327269,
       "sprout": 0,
-      "timestamp": 1767181433,
-      "transparent": 1142471242971414
+      "timestamp": 1767201051,
+      "transparent": 1142490369132098
     },
     {
-      "height": 3204648,
-      "lockbox": 1092168750000,
-      "orchard": 426780957786928,
-      "sapling": 62108750293464,
+      "height": 3204978,
+      "lockbox": 1098356250000,
+      "orchard": 426775827502556,
+      "sapling": 62166014444412,
       "sprout": 0,
-      "timestamp": 1768405087,
-      "transparent": 1159745154419608
+      "timestamp": 1768428949,
+      "transparent": 1159738395553032
     },
     {
-      "height": 3221140,
-      "lockbox": 1401393750000,
-      "orchard": 439863962658707,
-      "sapling": 61849797781378,
+      "height": 3221231,
+      "lockbox": 1403100000000,
+      "orchard": 439876768816055,
+      "sapling": 61856553501518,
       "sprout": 0,
-      "timestamp": 1769647506,
-      "transparent": 1149188752059915
+      "timestamp": 1769654480,
+      "transparent": 1149181702682427
     },
     {
-      "height": 3237450,
-      "lockbox": 1707206250000,
-      "orchard": 440512593948587,
-      "sapling": 61989235978004,
+      "height": 3237480,
+      "lockbox": 1707768750000,
+      "orchard": 440450151898247,
+      "sapling": 61990862308457,
       "sprout": 0,
-      "timestamp": 1770876209,
-      "transparent": 1150643307573409
+      "timestamp": 1770878757,
+      "transparent": 1150708248293296
     },
     {
       "height": 3253716,
@@ -2176,13 +2176,13 @@
       "transparent": 1152329434818110
     },
     {
-      "height": 3269967,
-      "lockbox": 2316900000000,
-      "orchard": 441015441791286,
-      "sapling": 61382084043518,
+      "height": 3270150,
+      "lockbox": 2320331250000,
+      "orchard": 440977942912123,
+      "sapling": 61313476764018,
       "sprout": 0,
-      "timestamp": 1773326897,
-      "transparent": 1155218699165196
+      "timestamp": 1773339290,
+      "transparent": 1155349967823859
     },
     {
       "height": 3286088,
@@ -2194,346 +2194,346 @@
       "transparent": 1147215385039044
     },
     {
-      "height": 3302591,
-      "lockbox": 2928600000000,
-      "orchard": 454028386769633,
-      "sapling": 61111371792040,
+      "height": 3302703,
+      "lockbox": 2930700000000,
+      "orchard": 454032090143655,
+      "sapling": 61115251110009,
       "sprout": 2540941766914,
-      "timestamp": 1775784845,
-      "transparent": 1144383841225893
+      "timestamp": 1775793215,
+      "transparent": 1144391658533902
     },
     {
-      "height": 3318863,
-      "lockbox": 3233700000000,
-      "orchard": 454753094991931,
-      "sapling": 59995461323060,
+      "height": 3318986,
+      "lockbox": 3236006250000,
+      "orchard": 454735392851379,
+      "sapling": 59989329671175,
       "sprout": 2540941766914,
-      "timestamp": 1777011775,
-      "transparent": 1147012443472575
+      "timestamp": 1777020294,
+      "transparent": 1147053189765012
     },
     {
-      "height": 3335147,
-      "lockbox": 3539025000000,
-      "orchard": 452336051915939,
-      "sapling": 59929515864804,
+      "height": 3335252,
+      "lockbox": 3540993750000,
+      "orchard": 452344528042742,
+      "sapling": 59911874254487,
       "sprout": 2540941766914,
-      "timestamp": 1778238694,
-      "transparent": 1151734482006823
+      "timestamp": 1778247272,
+      "transparent": 1151758084990337
     },
     {
-      "height": 3351423,
-      "lockbox": 3844200000000,
-      "orchard": 453329976493032,
-      "sapling": 59370563566349,
+      "height": 3351531,
+      "lockbox": 3846225000000,
+      "orchard": 453416826965439,
+      "sapling": 59368014252260,
       "sprout": 2540941766914,
-      "timestamp": 1779465619,
-      "transparent": 1153537459728185
+      "timestamp": 1779474234,
+      "transparent": 1153468008569867
     },
     {
-      "height": 3367688,
-      "lockbox": 4149168750000,
-      "orchard": 430853775896486,
-      "sapling": 58657000674087,
+      "height": 3367801,
+      "lockbox": 4151287500000,
+      "orchard": 430718529888369,
+      "sapling": 58655891948662,
       "sprout": 2540941766914,
-      "timestamp": 1780692550,
-      "transparent": 1178963660716993
+      "timestamp": 1780701191,
+      "transparent": 1179115552950535
     },
     {
-      "height": 3383294,
-      "lockbox": 4441781250000,
-      "orchard": 369993927155787,
-      "sapling": 62541423410152,
+      "height": 3383412,
+      "lockbox": 4443993750000,
+      "orchard": 369985021249823,
+      "sapling": 62539080979016,
       "sprout": 2540941766914,
-      "timestamp": 1781867789,
-      "transparent": 1238084911721627
+      "timestamp": 1781876994,
+      "transparent": 1238112385058727
     },
     {
-      "height": 3383981,
-      "lockbox": 4454662500000,
-      "orchard": 370086173524292,
-      "sapling": 62490539462682,
+      "height": 3384093,
+      "lockbox": 4456762500000,
+      "orchard": 370077391389947,
+      "sapling": 62494166557939,
       "sprout": 2540941766914,
-      "timestamp": 1781919495,
-      "transparent": 1238138011800592
+      "timestamp": 1781927970,
+      "transparent": 1238158566839680
     },
     {
-      "height": 3384442,
-      "lockbox": 4463306250000,
-      "orchard": 370086757466317,
-      "sapling": 62436670552155,
+      "height": 3384567,
+      "lockbox": 4465650000000,
+      "orchard": 370079912589525,
+      "sapling": 62438533079812,
       "sprout": 2540941766914,
-      "timestamp": 1781953980,
-      "transparent": 1238254684269094
+      "timestamp": 1781963389,
+      "transparent": 1238276854118229
     },
     {
-      "height": 3385589,
-      "lockbox": 4484812500000,
-      "orchard": 370204569991763,
-      "sapling": 62374654881795,
+      "height": 3385711,
+      "lockbox": 4487100000000,
+      "orchard": 370184129782853,
+      "sapling": 62365131089368,
       "sprout": 2540941766914,
-      "timestamp": 1782040537,
-      "transparent": 1238356599914008
+      "timestamp": 1782049720,
+      "transparent": 1238403338915345
     },
     {
-      "height": 3386736,
-      "lockbox": 4506318750000,
-      "orchard": 370233178653427,
-      "sapling": 62488205658764,
+      "height": 3386854,
+      "lockbox": 4508531250000,
+      "orchard": 370237524793658,
+      "sapling": 62340976831662,
       "sprout": 2540941766914,
-      "timestamp": 1782127042,
-      "transparent": 1238372152975375
+      "timestamp": 1782136164,
+      "transparent": 1238531260662246
     },
     {
-      "height": 3387884,
-      "lockbox": 4527843750000,
-      "orchard": 370316669645414,
-      "sapling": 62151360235905,
+      "height": 3387998,
+      "lockbox": 4529981250000,
+      "orchard": 370273467646307,
+      "sapling": 62149042915336,
       "sprout": 2540941766914,
-      "timestamp": 1782213420,
-      "transparent": 1238783357406247
+      "timestamp": 1782222554,
+      "transparent": 1238844551725923
     },
     {
-      "height": 3389031,
-      "lockbox": 4549350000000,
-      "orchard": 370091804927329,
-      "sapling": 62132316170946,
+      "height": 3389152,
+      "lockbox": 4551618750000,
+      "orchard": 370136313769329,
+      "sapling": 62130779904604,
       "sprout": 2540941766914,
-      "timestamp": 1782299843,
-      "transparent": 1239184978689291
+      "timestamp": 1782308957,
+      "transparent": 1239158643613633
     },
     {
-      "height": 3390173,
-      "lockbox": 4570762500000,
-      "orchard": 370172124288097,
-      "sapling": 62142766503124,
+      "height": 3390296,
+      "lockbox": 4573068750000,
+      "orchard": 371303738759474,
+      "sapling": 62106073334926,
       "sprout": 2540941766914,
-      "timestamp": 1782386206,
-      "transparent": 1239251233996345
+      "timestamp": 1782395365,
+      "transparent": 1238173225193166
     },
     {
-      "height": 3391320,
-      "lockbox": 4592268750000,
-      "orchard": 376238471358006,
-      "sapling": 62222067248998,
+      "height": 3391440,
+      "lockbox": 4594518750000,
+      "orchard": 376266425450307,
+      "sapling": 62218407855400,
       "sprout": 2540941766914,
-      "timestamp": 1782472638,
-      "transparent": 1233263298680562
+      "timestamp": 1782481545,
+      "transparent": 1233255503981859
     },
     {
-      "height": 3392471,
-      "lockbox": 4613850000000,
-      "orchard": 377786780798227,
-      "sapling": 62137359111066,
+      "height": 3392586,
+      "lockbox": 4616006250000,
+      "orchard": 377736150228785,
+      "sapling": 62138803953746,
       "sprout": 2540941766914,
-      "timestamp": 1782559019,
-      "transparent": 1231957959878273
+      "timestamp": 1782568178,
+      "transparent": 1232022958105035
     },
     {
-      "height": 3393611,
-      "lockbox": 4635225000000,
-      "orchard": 377473162708806,
-      "sapling": 62135938505282,
+      "height": 3393741,
+      "lockbox": 4637662500000,
+      "orchard": 377464465171833,
+      "sapling": 62137059358491,
       "sprout": 2540941766914,
-      "timestamp": 1782645433,
-      "transparent": 1232429748573478
+      "timestamp": 1782654553,
+      "transparent": 1232455200257242
     },
     {
-      "height": 3394755,
-      "lockbox": 4656675000000,
-      "orchard": 377419207034329,
-      "sapling": 62154526292348,
+      "height": 3394873,
+      "lockbox": 4658887500000,
+      "orchard": 377082758859211,
+      "sapling": 62153173057788,
       "sprout": 2540941766914,
-      "timestamp": 1782731804,
-      "transparent": 1232622416460889
+      "timestamp": 1782740998,
+      "transparent": 1232976442870567
     },
     {
-      "height": 3395894,
-      "lockbox": 4678031250000,
-      "orchard": 378824522500308,
-      "sapling": 62087261357032,
+      "height": 3396023,
+      "lockbox": 4680450000000,
+      "orchard": 378806938272655,
+      "sapling": 62093705946942,
       "sprout": 2540941766914,
-      "timestamp": 1782818015,
-      "transparent": 1231440978430226
+      "timestamp": 1782827338,
+      "transparent": 1231469855567969
     },
     {
-      "height": 3397044,
-      "lockbox": 4699593750000,
-      "orchard": 377308856794736,
-      "sapling": 62078140671608,
+      "height": 3397164,
+      "lockbox": 4701843750000,
+      "orchard": 377367446676740,
+      "sapling": 62083900984445,
       "sprout": 2540941766914,
-      "timestamp": 1782904616,
-      "transparent": 1233123889821222
+      "timestamp": 1782913794,
+      "transparent": 1233076039626381
     },
     {
-      "height": 3398193,
-      "lockbox": 4721137500000,
-      "orchard": 376596627046206,
-      "sapling": 62044611797796,
+      "height": 3398313,
+      "lockbox": 4723387500000,
+      "orchard": 376565461240543,
+      "sapling": 62066430947539,
       "sprout": 2540941766914,
-      "timestamp": 1782990998,
-      "transparent": 1234027635943564
+      "timestamp": 1782999626,
+      "transparent": 1234053482599484
     },
     {
-      "height": 3399342,
-      "lockbox": 4742681250000,
-      "orchard": 376381197153802,
-      "sapling": 62169767870698,
+      "height": 3399463,
+      "lockbox": 4744950000000,
+      "orchard": 376416972406594,
+      "sapling": 62068493016557,
       "sprout": 2540941766914,
-      "timestamp": 1783077193,
-      "transparent": 1234275897263066
+      "timestamp": 1783086601,
+      "transparent": 1234358034364415
     },
     {
-      "height": 3400261,
-      "lockbox": 4759912500000,
-      "orchard": 376596650717112,
-      "sapling": 62081044113278,
+      "height": 3400369,
+      "lockbox": 4761937500000,
+      "orchard": 376620279748340,
+      "sapling": 62062128744992,
       "sprout": 2540941766914,
-      "timestamp": 1783146371,
-      "transparent": 1234275529957176
+      "timestamp": 1783154932,
+      "transparent": 1234285666294234
     },
     {
-      "height": 3400485,
-      "lockbox": 4764112500000,
-      "orchard": 376620717620857,
-      "sapling": 62067179690297,
+      "height": 3400611,
+      "lockbox": 4766475000000,
+      "orchard": 376581980090953,
+      "sapling": 62065190102854,
       "sprout": 2540941766914,
-      "timestamp": 1783163759,
-      "transparent": 1234296127476412
+      "timestamp": 1783172903,
+      "transparent": 1234354179593759
     },
     {
-      "height": 3401643,
-      "lockbox": 4785825000000,
-      "orchard": 376663420535703,
-      "sapling": 62029186189192,
+      "height": 3401756,
+      "lockbox": 4787943750000,
+      "orchard": 376666458809729,
+      "sapling": 62029741999496,
       "sprout": 2540941766914,
-      "timestamp": 1783250207,
-      "transparent": 1234450643062671
+      "timestamp": 1783259334,
+      "transparent": 1234462586478341
     },
     {
-      "height": 3402776,
-      "lockbox": 4807068750000,
-      "orchard": 376669807981106,
-      "sapling": 62005318793275,
+      "height": 3402904,
+      "lockbox": 4809468750000,
+      "orchard": 376642245482683,
+      "sapling": 61992969575622,
       "sprout": 2540941766914,
-      "timestamp": 1783336611,
-      "transparent": 1234623910513185
+      "timestamp": 1783345771,
+      "transparent": 1234681422229261
     },
     {
-      "height": 3403925,
-      "lockbox": 4828612500000,
-      "orchard": 376540675779664,
-      "sapling": 61982870197980,
+      "height": 3404053,
+      "lockbox": 4831012500000,
+      "orchard": 376540631722303,
+      "sapling": 62016844094587,
       "sprout": 2540941766914,
-      "timestamp": 1783423014,
-      "transparent": 1234933478809922
+      "timestamp": 1783432202,
+      "transparent": 1234917148970676
     },
     {
-      "height": 3405074,
-      "lockbox": 4850156250000,
-      "orchard": 376433351084680,
-      "sapling": 59269285934829,
+      "height": 3405194,
+      "lockbox": 4852406250000,
+      "orchard": 376476690890109,
+      "sapling": 59269248162966,
       "sprout": 2540941766914,
-      "timestamp": 1783509412,
-      "transparent": 1237912375268057
+      "timestamp": 1783518566,
+      "transparent": 1237885573234491
     },
     {
-      "height": 3406224,
-      "lockbox": 4871718750000,
-      "orchard": 376478339293422,
-      "sapling": 59253651823579,
+      "height": 3406347,
+      "lockbox": 4874025000000,
+      "orchard": 376437325031582,
+      "sapling": 59255251248216,
       "sprout": 2540941766914,
-      "timestamp": 1783595764,
-      "transparent": 1238041146170565
+      "timestamp": 1783604999,
+      "transparent": 1238097473507768
     },
     {
-      "height": 3407366,
-      "lockbox": 4893131250000,
-      "orchard": 376749465464302,
-      "sapling": 59436738020691,
+      "height": 3407487,
+      "lockbox": 4895400000000,
+      "orchard": 376758754883825,
+      "sapling": 59454480512090,
       "sprout": 2540941766914,
-      "timestamp": 1783682225,
-      "transparent": 1237743958802573
+      "timestamp": 1783691346,
+      "transparent": 1237733564391651
     },
     {
-      "height": 3408514,
-      "lockbox": 4914656250000,
-      "orchard": 376471876989875,
-      "sapling": 59355824796618,
+      "height": 3408642,
+      "lockbox": 4917056250000,
+      "orchard": 376397581642801,
+      "sapling": 59354649750008,
       "sprout": 2540941766914,
-      "timestamp": 1783768521,
-      "transparent": 1238260310501073
+      "timestamp": 1783777776,
+      "transparent": 1238353380894757
     },
     {
-      "height": 3409665,
-      "lockbox": 4936237500000,
-      "orchard": 376623060793013,
-      "sapling": 59362819311241,
+      "height": 3409777,
+      "lockbox": 4938337500000,
+      "orchard": 376777462959805,
+      "sapling": 59360886358208,
       "sprout": 2540941766914,
-      "timestamp": 1783854868,
-      "transparent": 1238260394683312
+      "timestamp": 1783864183,
+      "transparent": 1238123325469553
     },
     {
-      "height": 3410802,
-      "lockbox": 4957556250000,
-      "orchard": 377150227811664,
-      "sapling": 59240471066532,
+      "height": 3410925,
+      "lockbox": 4959862500000,
+      "orchard": 377144546865551,
+      "sapling": 59285233791394,
       "sprout": 2540941766914,
-      "timestamp": 1783941389,
-      "transparent": 1238011913409370
+      "timestamp": 1783950603,
+      "transparent": 1237989744130621
     },
     {
-      "height": 3411948,
-      "lockbox": 4979043750000,
-      "orchard": 377140936181443,
-      "sapling": 59248122220133,
+      "height": 3412078,
+      "lockbox": 4981481250000,
+      "orchard": 377129852143500,
+      "sapling": 59325966754072,
       "sprout": 2540941766914,
-      "timestamp": 1784027792,
-      "transparent": 1238171128885990
+      "timestamp": 1784036824,
+      "transparent": 1238122243389994
     },
     {
-      "height": 3413097,
-      "lockbox": 5000587500000,
-      "orchard": 376920388499164,
-      "sapling": 59344023290547,
+      "height": 3413227,
+      "lockbox": 5003025000000,
+      "orchard": 376897113334313,
+      "sapling": 59363711145850,
       "sprout": 2540941766914,
-      "timestamp": 1784114180,
-      "transparent": 1238453762997855
+      "timestamp": 1784123387,
+      "transparent": 1238475225307403
     },
     {
-      "height": 3414245,
-      "lockbox": 5022112500000,
-      "orchard": 376837639860837,
-      "sapling": 59350893387421,
+      "height": 3414373,
+      "lockbox": 5024512500000,
+      "orchard": 376797350419971,
+      "sapling": 59343492310260,
       "sprout": 2540941766914,
-      "timestamp": 1784200612,
-      "transparent": 1238687491539308
+      "timestamp": 1784209783,
+      "transparent": 1238752782057335
     },
     {
-      "height": 3415395,
-      "lockbox": 5043675000000,
-      "orchard": 376308441864757,
-      "sapling": 59091152097140,
+      "height": 3415522,
+      "lockbox": 5046056250000,
+      "orchard": 376300420543360,
+      "sapling": 59089241559069,
       "sprout": 2540941766914,
-      "timestamp": 1784286983,
-      "transparent": 1239634555825669
+      "timestamp": 1784296013,
+      "transparent": 1239661950185137
     },
     {
-      "height": 3416540,
-      "lockbox": 5065143750000,
-      "orchard": 376778924667682,
-      "sapling": 59053268502581,
+      "height": 3416667,
+      "lockbox": 5067525000000,
+      "orchard": 376878523641657,
+      "sapling": 59051684661653,
       "sprout": 2540941766914,
-      "timestamp": 1784373354,
-      "transparent": 1239359394117303
+      "timestamp": 1784382059,
+      "transparent": 1239278841484256
     },
     {
-      "height": 3416542,
-      "lockbox": 5065181250000,
-      "orchard": 376785371106060,
-      "sapling": 59053268502581,
+      "height": 3416669,
+      "lockbox": 5067562500000,
+      "orchard": 376878510726657,
+      "sapling": 59050559400577,
       "sprout": 2540941766914,
-      "timestamp": 1784373442,
-      "transparent": 1239353222678925
+      "timestamp": 1784382301,
+      "transparent": 1239280254660332
     }
   ],
   "ironwood_history": [],
@@ -2564,26 +2564,26 @@
       "tree_present": false
     },
     "orchard": {
-      "balance_zatoshis": 376785371106060,
+      "balance_zatoshis": 376878510726657,
       "flow_semantics": "net_balance_change",
-      "net_change_24h_bps": 1267,
-      "net_change_24h_zatoshis": 476929241303,
-      "net_change_7d_bps": 833,
-      "net_change_7d_zatoshis": 313494116185,
+      "net_change_24h_bps": 215,
+      "net_change_24h_zatoshis": 81160306686,
+      "net_change_7d_bps": 318,
+      "net_change_7d_zatoshis": 119755842832,
       "net_change_since_activation_zatoshis": null,
-      "shielded_share_bps": 859496,
-      "supply_share_bps": 223904
+      "shielded_share_bps": 859531,
+      "supply_share_bps": 223957
     },
     "sapling": {
-      "balance_zatoshis": 59053268502581,
+      "balance_zatoshis": 59050559400577,
       "flow_semantics": "net_balance_change",
-      "net_change_24h_bps": -641,
-      "net_change_24h_zatoshis": -37883594559,
-      "net_change_7d_bps": -5097,
-      "net_change_7d_zatoshis": -302556294037,
+      "net_change_24h_bps": -4936,
+      "net_change_24h_zatoshis": -292932909683,
+      "net_change_7d_bps": -6794,
+      "net_change_7d_zatoshis": -403921111513,
       "net_change_since_activation_zatoshis": null,
-      "shielded_share_bps": 134708,
-      "supply_share_bps": 35092
+      "shielded_share_bps": 134674,
+      "supply_share_bps": 35090
     }
   },
   "project": {
@@ -2612,18 +2612,18 @@
   "supply": {
     "accounting_difference_zatoshis": 0,
     "legacy_sprout_zatoshis": 2540941766914,
-    "lockbox_zatoshis": 5065181250000,
-    "net_change_24h_bps": 1003,
-    "net_change_24h_zatoshis": 439045646744,
-    "net_change_7d_zatoshis": 10937822148,
-    "shielded_share_bps": 260506,
-    "shielded_zatoshis": 438379581375555,
-    "total_zatoshis": 1682797985304480,
-    "transparent_net_change_24h_bps": -227,
-    "transparent_net_change_24h_zatoshis": -281333146744,
-    "transparent_net_change_7d_bps": 883,
-    "transparent_net_change_7d_zatoshis": 1092912177852,
-    "transparent_share_bps": 736484,
-    "transparent_zatoshis": 1239353222678925
+    "lockbox_zatoshis": 5067562500000,
+    "net_change_24h_bps": -483,
+    "net_change_24h_zatoshis": -211772602997,
+    "net_change_7d_zatoshis": -284165268681,
+    "shielded_share_bps": 260557,
+    "shielded_zatoshis": 438470011894148,
+    "total_zatoshis": 1682817829054480,
+    "transparent_net_change_24h_bps": 426,
+    "transparent_net_change_24h_zatoshis": 527472602997,
+    "transparent_net_change_7d_bps": 1250,
+    "transparent_net_change_7d_zatoshis": 1546690268681,
+    "transparent_share_bps": 736432,
+    "transparent_zatoshis": 1239280254660332
   }
 }
