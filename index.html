@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#070809">
-  <meta name="description" content="A live, evidence-led view of Zcash shielded supply approaching the Ironwood era.">
-  <title>Zcash Shielded Observatory — Ironwood Transition</title>
+  <meta name="description" content="A live, evidence-led view of Zcash shielded supply in the active Ironwood era.">
+  <title>Zcash Shielded Observatory — Ironwood Live</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,9 +21,9 @@
   <main id="top">
     <section class="hero shell">
       <div class="hero-copy reveal">
-        <p class="kicker">NU6.3 · Mainnet transition monitor</p>
+        <p class="kicker">NU6.3 · Mainnet live observatory</p>
         <h1>A new era for<br>Zcash <em>shielded value.</em></h1>
-        <p class="lede">Following the public evolution of shielded supply from Sapling and Orchard toward Ironwood — without claiming links the chain cannot prove.</p>
+        <p class="lede">Observing the live Ironwood era and the public evolution of shielded supply — without claiming links the chain cannot prove.</p>
         <div class="hero-facts">
           <div><span>Current height</span><strong id="current-height">—</strong></div>
           <div><span>Activation height</span><strong>3,428,143</strong></div>
@@ -43,17 +43,16 @@
           <span class="core-pulse"></span>
         </div>
         <div class="core-content">
-          <div class="status-row"><span id="ironwood-status" class="pill pending">Pending activation</span><span id="zebra-ready" class="readiness">Awaiting Zebra source</span></div>
-          <p class="core-label">The destination protocol</p>
+          <div class="status-row"><span id="ironwood-status" class="pill">Ironwood active</span><span id="zebra-ready" class="readiness">Loading data source</span></div>
+          <p class="core-label">The shielded protocol is live</p>
           <h2 id="ironwood-title">IRONWOOD</h2>
-          <div class="countdown" id="countdown"><div><b>—</b><span>days</span></div><div><b>—</b><span>hours</span></div><div><b>—</b><span>minutes</span></div><div><b>—</b><span>seconds</span></div></div>
-          <div class="progress"><i id="activation-progress"></i></div>
+          <div class="activation-live"><i aria-hidden="true"></i><div><b id="activation-state">Mainnet active</b><span id="activation-block">Activated at block 3,428,143</span></div></div>
           <div class="core-stats">
-            <div><span>Blocks remaining</span><b id="blocks-remaining">—</b></div>
+            <div><span>Activation</span><b>NU6.3</b></div>
             <div><span>Pool balance</span><b id="ironwood-balance">—</b></div>
-            <div><span>Readiness</span><b id="readiness-state">Watching</b></div>
+            <div><span>Data source</span><b id="readiness-state">Loading</b></div>
           </div>
-          <p id="ironwood-message" class="core-note">Collection begins automatically at activation. No synthetic observations are stored.</p>
+          <p id="ironwood-message" class="core-note">Loading live Ironwood value-pool data.</p>
         </div>
       </article>
     </section>
@@ -83,7 +82,7 @@
         <div class="flow-link" aria-hidden="true"><i></i><i></i><i></i><span>protocol<br>evolution</span></div>
         <article class="pool orchard"><div class="pool-orb">O</div><p>2022 · Current</p><h3>Orchard</h3><strong id="orchard-balance">—</strong><span id="orchard-share">— of shielded</span><div class="mini-line"><svg id="orchard-spark" viewBox="0 0 240 56"></svg></div><dl><div><dt>24h net</dt><dd id="orchard-day">—</dd></div><div><dt>7d net</dt><dd id="orchard-week">—</dd></div><div><dt>Since NU6.3</dt><dd id="orchard-since">—</dd></div></dl></article>
         <div class="flow-link bright" aria-hidden="true"><i></i><i></i><i></i><span>next<br>upgrade</span></div>
-        <article class="pool ironwood"><div class="pool-orb">I</div><p>2026 · Next</p><h3>Ironwood</h3><strong id="ironwood-map-balance">—</strong><span id="ironwood-map-status">Pending activation</span><div class="mini-line empty"><span>History begins at block 3,428,143</span></div><dl><div><dt>Data state</dt><dd id="ironwood-data-state">Pending</dd></div><div><dt>24h net</dt><dd id="ironwood-net">—</dd></div><div><dt>Since NU6.3</dt><dd id="ironwood-since">—</dd></div></dl></article>
+        <article class="pool ironwood"><div class="pool-orb">I</div><p>2026 · Active</p><h3>Ironwood</h3><strong id="ironwood-map-balance">—</strong><span id="ironwood-map-status">Loading live state</span><div class="mini-line"><svg id="ironwood-spark" viewBox="0 0 240 56"></svg></div><dl><div><dt>Data state</dt><dd id="ironwood-data-state">Loading</dd></div><div><dt>24h net</dt><dd id="ironwood-net">—</dd></div><div><dt>Since NU6.3</dt><dd id="ironwood-since">—</dd></div></dl></article>
       </div>
     </section>
 

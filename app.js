@@ -37,10 +37,8 @@ function renderActivation(data) {
   module.style.setProperty("--core-halo", `${Math.round(110 + urgency * 85)}px`);
   module.style.setProperty("--particle-scale", (1 + urgency * 0.65).toFixed(2));
   text("current-height", number(activation.current_height));
-  text("blocks-remaining", number(activation.blocks_remaining));
   text("ironwood-balance", formatZec(ironwood.balance_zatoshis));
   text("ironwood-map-balance", formatZec(ironwood.balance_zatoshis));
-  $("activation-progress").style.width = `${Math.min(100, Number(activation.progress_bps) / 10000)}%`;
   const labels = {
     pending_activation: "Pending activation", supported_pre_activation: "Node ready · pre-activation",
     activation_reached_waiting_data: "Activation reached · awaiting data", backfilling: "Backfilling chain",
@@ -56,24 +54,15 @@ function renderActivation(data) {
   } else if (activation.reached) {
     document.querySelector(".core-label").textContent = "Activation reached · synchronizing";
   }
-  text("zebra-ready", ironwood.supported ? "Zebra reports Ironwood support" : "Zebra source not configured");
-  text("readiness-state", ironwood.supported ? "Ready" : "Watching");
+  text("zebra-ready", ironwood.source === "zebra_rpc" ? "Verified by Zebra RPC" : ironwood.source === "zcashinfo" ? "Live via ZcashInfo" : "Ironwood data unavailable");
+  text("readiness-state", ironwood.source === "zebra_rpc" ? "Zebra RPC" : ironwood.source === "zcashinfo" ? "ZcashInfo" : "Unavailable");
   text("ironwood-net", formatZec(ironwood.net_change_24h_zatoshis));
   text("ironwood-since", formatZec(ironwood.net_change_since_activation_zatoshis));
   text("ironwood-message", ironwood.active
-    ? "Ironwood is active. Verified block history is being collected automatically."
+    ? "Ironwood is active. Public value-pool balances and net changes update automatically."
     : "Collection begins automatically at activation. No synthetic observations are stored.");
-  const target = new Date(activation.estimated_at).getTime();
-  if (ironwood.active) {
-    $("countdown").innerHTML = `<div class="activated-at"><b>ACTIVE</b><span>since block ${number(activation.height)}</span></div>`;
-    return;
-  }
-  function tick() {
-    const diff = Math.max(0, target - Date.now());
-    const values = [Math.floor(diff / 86400000), Math.floor(diff / 3600000) % 24, Math.floor(diff / 60000) % 60, Math.floor(diff / 1000) % 60];
-    $("countdown").querySelectorAll("b").forEach((node, index) => node.textContent = String(values[index]).padStart(2, "0"));
-  }
-  tick(); setInterval(tick, 1000);
+  text("activation-state", activation.reached ? "Mainnet active" : "Awaiting activation");
+  text("activation-block", `Activated at block ${number(activation.height)}`);
 }
 
 function renderSupply(data) {
@@ -115,7 +104,7 @@ function chartPoints(history, ironwoodHistory) {
     while (ironwoodIndex + 1 < ironwoodHistory.length && Number(ironwoodHistory[ironwoodIndex + 1].height) <= Number(point.height)) ironwoodIndex += 1;
     return {
       ...point,
-      ironwood: ironwoodIndex >= 0 ? ironwoodHistory[ironwoodIndex].balance_zatoshis : null,
+      ironwood: ironwoodIndex >= 0 ? ironwoodHistory[ironwoodIndex].balance_zatoshis : point.ironwood ?? null,
     };
   });
 }
@@ -205,7 +194,7 @@ async function init(){
     const response=await fetch("data/data.json",{cache:"no-store"}); if(!response.ok)throw new Error(response.status);
     const data=await response.json(); renderActivation(data); renderSupply(data); renderPool("sapling",data.pools.sapling); renderPool("orchard",data.pools.orchard);
     let selectedRange="all";const redraw=()=>{renderChart(data.history,data.ironwood_history||[],selectedRange);renderRangeLens(data,selectedRange)};
-    renderSpark("sapling-spark",data.history,"sapling","#b6a98a"); renderSpark("orchard-spark",data.history,"orchard","#86d8a7"); redraw(); renderIntegrity(data);
+    renderSpark("sapling-spark",data.history,"sapling","#b6a98a"); renderSpark("orchard-spark",data.history,"orchard","#86d8a7"); renderSpark("ironwood-spark",data.history,"ironwood","#f4b728"); redraw(); renderIntegrity(data);
     document.querySelectorAll("[data-range]").forEach((button)=>button.addEventListener("click",()=>{document.querySelectorAll("[data-range]").forEach(b=>b.classList.remove("active"));button.classList.add("active");selectedRange=button.dataset.range;redraw()}));
   }catch(error){console.error(error);text("chain-status","Dataset unavailable");$("live-dot").style.background="var(--danger)";}
   const observer=new IntersectionObserver((entries)=>entries.forEach((entry)=>entry.isIntersecting&&entry.target.classList.add("visible")),{threshold:.08});document.querySelectorAll(".reveal").forEach((node)=>observer.observe(node));

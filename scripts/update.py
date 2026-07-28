@@ -119,10 +119,14 @@ def net_change(history: list[dict], pool: str, seconds: int):
 
 
 def change_since_height(history: list[dict], pool: str, height: int):
-    points = [row for row in history if row.get("height", 0) >= height and row.get(pool) is not None]
-    if len(points) < 2:
+    points = [row for row in history if row.get(pool) is not None]
+    if not points:
         return None
-    return points[-1][pool] - points[0][pool]
+    reference = next((row for row in reversed(points) if row.get("height", 0) <= height), None)
+    current = points[-1]
+    if reference is None or current.get("height", 0) <= reference.get("height", 0):
+        return None
+    return current[pool] - reference[pool]
 
 
 def change_bps(current: int | None, delta: int | None):
@@ -187,10 +191,15 @@ def backfill_ironwood(zebra: ZebraClient, tip: int, rows: list[dict]) -> list[di
 
 def derive_ironwood(zebra: ZebraClient | None, tip: int, zcashinfo_pools: dict):
     public_value = optional_int(zcashinfo_pools.get("ironwood_zatoshis"))
+    public_active = tip >= ACTIVATION_HEIGHT and public_value is not None
     state = {
-        "status": "pending_activation" if tip < ACTIVATION_HEIGHT else "activation_reached_waiting_data",
+        "status": (
+            "active" if public_active
+            else "pending_activation" if tip < ACTIVATION_HEIGHT
+            else "activation_reached_waiting_data"
+        ),
         "supported": public_value is not None,
-        "active": False,
+        "active": public_active,
         "monitored": public_value is not None,
         "balance_zatoshis": public_value,
         "tree_present": False,
@@ -224,10 +233,11 @@ def derive_ironwood(zebra: ZebraClient | None, tip: int, zcashinfo_pools: dict):
                 state["status"] = "active" if history and history[-1]["height"] >= tip else "backfilling"
                 state["active"] = state["status"] == "active"
     except Exception as exc:
-        state["status"] = "source_error"
         # The RPC URL may be private. Publish an actionable class, never the
         # original exception string or endpoint.
         state["last_error"] = f"{type(exc).__name__}: Zebra RPC unavailable"
+        if not public_active:
+            state["status"] = "source_error"
     return state, history
 
 
@@ -252,10 +262,16 @@ def build_dataset(pools: dict, dashboard: dict, history: list[dict], zebra: Zebr
     shielded_day = sum(net_change(history, p, 86_400) or 0 for p in ("sprout", "sapling", "orchard"))
     transparent_day = net_change(history, "transparent", 86_400)
     transparent_week = net_change(history, "transparent", 7 * 86_400)
-    ironwood_points = [
-        {"timestamp": row["timestamp"], "ironwood": row["balance_zatoshis"]}
+    public_ironwood_points = [row for row in history if row.get("ironwood") is not None]
+    zebra_ironwood_points = [
+        {
+            "height": row["height"],
+            "timestamp": row["timestamp"],
+            "ironwood": row["balance_zatoshis"],
+        }
         for row in ironwood_history
     ]
+    ironwood_points = merge_history(public_ironwood_points, zebra_ironwood_points)
     ironwood_day = net_change(ironwood_points, "ironwood", 86_400)
     ironwood_week = net_change(ironwood_points, "ironwood", 7 * 86_400)
     return {
@@ -286,9 +302,12 @@ def build_dataset(pools: dict, dashboard: dict, history: list[dict], zebra: Zebr
             "accounting_difference_zatoshis": total_supply - accounted,
             "shielded_share_bps": round(shielded_total * 1_000_000 / total_supply) if total_supply else None,
             "transparent_share_bps": round(transparent * 1_000_000 / total_supply) if total_supply else None,
-            "net_change_24h_zatoshis": shielded_day,
-            "net_change_24h_bps": change_bps(shielded_total, shielded_day),
-            "net_change_7d_zatoshis": sum(net_change(history, p, 7 * 86_400) or 0 for p in ("sprout", "sapling", "orchard")),
+            "net_change_24h_zatoshis": shielded_day + (ironwood_day or 0),
+            "net_change_24h_bps": change_bps(shielded_total, shielded_day + (ironwood_day or 0)),
+            "net_change_7d_zatoshis": (
+                sum(net_change(history, p, 7 * 86_400) or 0 for p in ("sprout", "sapling", "orchard"))
+                + (ironwood_week or 0)
+            ),
             "transparent_net_change_24h_zatoshis": transparent_day,
             "transparent_net_change_24h_bps": change_bps(transparent, transparent_day),
             "transparent_net_change_7d_zatoshis": transparent_week,
@@ -303,15 +322,18 @@ def build_dataset(pools: dict, dashboard: dict, history: list[dict], zebra: Zebr
                 "net_change_24h_bps": change_bps(ironwood["balance_zatoshis"], ironwood_day),
                 "net_change_7d_zatoshis": ironwood_week,
                 "net_change_7d_bps": change_bps(ironwood["balance_zatoshis"], ironwood_week),
-                "net_change_since_activation_zatoshis": (
-                    ironwood_history[-1]["balance_zatoshis"] - ironwood_history[0]["balance_zatoshis"]
-                    if len(ironwood_history) > 1 else None
+                "net_change_since_activation_zatoshis": change_since_height(
+                    ironwood_points, "ironwood", ACTIVATION_HEIGHT
                 ),
                 "supply_share_bps": (
                     round(ironwood["balance_zatoshis"] * 1_000_000 / total_supply)
                     if total_supply and ironwood["balance_zatoshis"] is not None else None
                 ),
-                "flow_semantics": "per_block_net_delta" if ironwood_history else "not_available",
+                "flow_semantics": (
+                    "per_block_net_delta" if ironwood_history
+                    else "net_balance_change" if public_ironwood_points
+                    else "not_available"
+                ),
             },
         },
         "history": history,
@@ -334,6 +356,22 @@ def stable_payload(dataset: dict):
     return {key: value for key, value in dataset.items() if key != "generated_at"}
 
 
+def validate_dataset(dataset: dict):
+    """Reject internally inconsistent or regressed snapshots before publishing."""
+    activation = dataset["activation"]
+    supply = dataset["supply"]
+    pools = dataset["pools"]
+    if activation["current_height"] <= 0:
+        raise ValueError("invalid chain height")
+    if dataset["history"] != sorted(dataset["history"], key=lambda row: row["height"]):
+        raise ValueError("history is not ordered by height")
+    if supply["accounting_difference_zatoshis"] != 0:
+        raise ValueError("value pools do not match emitted supply")
+    if activation["reached"] and pools["ironwood"]["balance_zatoshis"] is not None:
+        if not pools["ironwood"]["active"] or pools["ironwood"]["status"] != "active":
+            raise ValueError("published Ironwood pool is not marked active")
+
+
 def atomic_write(path: Path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     text = json.dumps(data, indent=2, sort_keys=True) + "\n"
@@ -353,6 +391,7 @@ def main() -> int:
     url = os.getenv("ZEBRA_RPC_URL")
     zebra = ZebraClient(url, os.getenv("ZEBRA_RPC_USER"), os.getenv("ZEBRA_RPC_PASSWORD")) if url else None
     dataset = build_dataset(pools, dashboard, history, zebra)
+    validate_dataset(dataset)
     if OUTFILE.exists() and stable_payload(json.loads(OUTFILE.read_text())) == stable_payload(dataset):
         print("Dataset unchanged")
         return 0

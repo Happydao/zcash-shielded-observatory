@@ -1,6 +1,6 @@
 # Zcash Shielded Observatory
 
-Zcash Shielded Observatory is an evidence-led dashboard following the transition of Zcash shielded supply from Sapling and Orchard into the Ironwood era. Ironwood activates with NU6.3 on Mainnet at block `3,428,143`.
+Zcash Shielded Observatory is an evidence-led dashboard following Zcash shielded supply across Sapling, Orchard, and the active Ironwood era. Ironwood activated with NU6.3 on Mainnet at block `3,428,143`.
 
 The navigation uses the official Zcash brandmark from the Zcash Media Kit. The concentric-ring Ironwood identifier is an original dashboard illustration, not an official Ironwood logo.
 
@@ -17,7 +17,8 @@ Zebra RPC (optional) ────┘                    └ data/ironwood-histor
 ```
 
 - ZcashInfo supplies public current balances, chain height, and historical snapshots.
-- Zebra 6.0.0+ is the primary Ironwood source when `ZEBRA_RPC_URL` is configured in GitHub Actions secrets.
+- ZcashInfo supplies the live Ironwood balance and snapshot history.
+- Zebra is the optional higher-resolution Ironwood source when `ZEBRA_RPC_URL` is configured in GitHub Actions secrets.
 - The browser never contacts Zebra and never receives RPC credentials.
 - GitHub Actions refreshes the versioned dataset hourly.
 - All monetary values are stored as integer zatoshi.
@@ -50,7 +51,7 @@ Snapshot differences and `valueDeltaZat` are **net value-pool changes**. They ar
 
 ## Configuration
 
-The public dashboard works before Ironwood activation without Zebra and displays `Pending activation`. For automatic Ironwood collection, add repository secrets:
+The public dashboard reports active Ironwood balances and snapshot changes from ZcashInfo without requiring Zebra. For optional per-block Ironwood history, add repository secrets:
 
 ```text
 ZEBRA_RPC_URL

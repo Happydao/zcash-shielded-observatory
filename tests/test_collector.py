@@ -27,6 +27,13 @@ class ParserTests(unittest.TestCase):
         history = [{"height": collector.ACTIVATION_HEIGHT, "orchard": 10}]
         self.assertIsNone(collector.change_since_height(history, "orchard", collector.ACTIVATION_HEIGHT))
 
+    def test_activation_change_uses_last_pre_activation_balance(self):
+        history = [
+            {"height": collector.ACTIVATION_HEIGHT - 5, "ironwood": 0},
+            {"height": collector.ACTIVATION_HEIGHT + 5, "ironwood": 12},
+        ]
+        self.assertEqual(collector.change_since_height(history, "ironwood", collector.ACTIVATION_HEIGHT), 12)
+
     def test_history_merge_prefers_denser_source(self):
         merged = collector.merge_history(
             [{"height": 1, "timestamp": 1, "orchard": 10}],
@@ -55,6 +62,25 @@ class StateMachineTests(unittest.TestCase):
     def test_post_activation_without_data_waits(self):
         state, _ = collector.derive_ironwood(None, collector.ACTIVATION_HEIGHT, {})
         self.assertEqual(state["status"], "activation_reached_waiting_data")
+
+    def test_post_activation_public_pool_is_active(self):
+        state, _ = collector.derive_ironwood(
+            None, collector.ACTIVATION_HEIGHT, {"ironwood_zatoshis": 0}
+        )
+        self.assertEqual(state["status"], "active")
+        self.assertTrue(state["active"])
+        self.assertEqual(state["source"], "zcashinfo")
+
+    def test_zebra_error_keeps_public_fallback_active(self):
+        class BrokenZebra:
+            def call(self, method, params=None):
+                raise RuntimeError("offline")
+        state, _ = collector.derive_ironwood(
+            BrokenZebra(), collector.ACTIVATION_HEIGHT, {"ironwood_zatoshis": 5}
+        )
+        self.assertEqual(state["status"], "active")
+        self.assertTrue(state["active"])
+        self.assertEqual(state["source"], "zcashinfo")
 
     def test_zebra_error_does_not_publish_private_url(self):
         class BrokenZebra:
