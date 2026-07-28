@@ -104,15 +104,15 @@ def merge_history(*series: list[dict]) -> list[dict]:
     return [merged[height] for height in sorted(merged)]
 
 
-def closest_at_or_before(history: list[dict], timestamp: int):
-    return next((p for p in reversed(history) if p["timestamp"] <= timestamp), None)
+def closest_to(history: list[dict], timestamp: int):
+    return min(history, key=lambda point: abs(point["timestamp"] - timestamp), default=None)
 
 
 def net_change(history: list[dict], pool: str, seconds: int):
     if not history:
         return None
     current = history[-1]
-    reference = closest_at_or_before(history, current["timestamp"] - seconds)
+    reference = closest_to(history[:-1], current["timestamp"] - seconds)
     if not reference or pool not in current or pool not in reference:
         return None
     return current[pool] - reference[pool]

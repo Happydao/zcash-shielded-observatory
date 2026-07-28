@@ -15,13 +15,13 @@ class ParserTests(unittest.TestCase):
     def test_absent_value_remains_none(self):
         self.assertIsNone(collector.optional_int(None))
 
-    def test_net_change_uses_closest_prior_snapshot(self):
+    def test_net_change_uses_snapshot_closest_to_interval(self):
         history = [
             {"timestamp": 100, "orchard": 10},
             {"timestamp": 200, "orchard": 14},
             {"timestamp": 300, "orchard": 8},
         ]
-        self.assertEqual(collector.net_change(history, "orchard", 100), -6)
+        self.assertEqual(collector.net_change(history, "orchard", 140), -6)
 
     def test_activation_change_requires_two_real_points(self):
         history = [{"height": collector.ACTIVATION_HEIGHT, "orchard": 10}]

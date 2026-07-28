@@ -157,14 +157,15 @@ function renderRangeLens(data, range="all") {
   text("lens-shielded-share",`${endShare.toFixed(2)}%`);
   text("lens-share-change",`${shareChange>0?"+":shareChange<0?"−":""}${Math.abs(shareChange).toFixed(2)} percentage points`);
   const rows=[
-    ["Transparent",bigint(end.transparent),"transparent"],
-    ["Orchard",bigint(end.orchard),"orchard"],
-    ["Sapling",bigint(end.sapling),"sapling"],
-    ["Ironwood",end.ironwood==null?null:bigint(end.ironwood),"ironwood"],
+    ["Transparent",bigint(end.transparent),bigint(start.transparent),"transparent"],
+    ["Orchard",bigint(end.orchard),bigint(start.orchard),"orchard"],
+    ["Sapling",bigint(end.sapling),bigint(start.sapling),"sapling"],
+    ["Ironwood",end.ironwood==null?null:bigint(end.ironwood),start.ironwood==null?0n:bigint(start.ironwood),"ironwood"],
   ];
-  $("lens-pools").innerHTML=rows.map(([name,value,className])=>{
-    const share=value==null?null:pointShare(value,endTotal);
-    return `<div class="lens-pool ${className}"><div><span>${name}</span><b>${share==null?"—":`${share.toFixed(2)}%`}</b></div><div class="lens-bar"><i style="width:${share==null?0:Math.max(.4,share)}%"></i></div><small>${value==null?"Pending activation":formatZec(value)}</small></div>`;
+  $("lens-pools").innerHTML=rows.map(([name,endValue,startValue,className])=>{
+    const share=endValue==null?null:pointShare(endValue,endTotal);
+    const delta=endValue==null||startValue==null?null:endValue-startValue;
+    return `<div class="lens-pool ${className}"><div><span>${name}</span><b>${share==null?"—":`${share.toFixed(2)}%`}</b></div><div class="lens-bar"><i style="width:${share==null?0:Math.max(.4,share)}%"></i></div><small class="${deltaClass(delta)}">${delta==null?"Not available":`Δ ${formatZec(delta)}`}</small></div>`;
   }).join("");
   const netShielded=endShielded-startShielded;
   text("lens-net-shielded",formatZec(netShielded));
